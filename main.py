@@ -64,6 +64,8 @@ def update_extraordinary_md():
             width="100px;"
             alt=""/><br/><sub><b>{name}</b></sub></a><br/></td>
     </tc>"""
+    boilerplate_text.strip('\n')
+
     with open('Extraordinary.md', 'r') as f:
         lines = f.readlines()
 
