@@ -52,43 +52,6 @@ def fetch_issues():
         print("Failed to fetch issues. Status code:", issue_response.status_code)
 
 
-def update_extraordinary_md():
-    """
-    Updates the Extraordinary.md file with the details of the issue creator
-    :return: none
-    """
-    boilerplate_text = f"""
-    <tc>
-        <td align="center"><a href="https://github.com/{issue_username}"><img
-            src={issue_username_avatar_url}
-            width="100px;"
-            alt=""/><br/><sub><b>{name}</b></sub></a><br/></td>
-    </tc>"""
-    boilerplate_text.strip('\n')
-
-    with open('Extraordinary.md', 'r') as f:
-        lines = f.readlines()
-
-    # Find the index of the last occurrence of "</tc>"
-    last_tc_index = None
-    for i in range(len(lines) - 1, -1, -1):
-        if "</tc>" in lines[i]:
-            last_tc_index = i
-            break
-
-    # Check if "</tc>" was found
-    if last_tc_index is not None:
-        # Append text in the next line
-        lines.insert(last_tc_index, f"{boilerplate_text}\n")
-
-        # Open the file in write mode and overwrite its contents
-        with open('Extraordinary.md', "w") as file:
-            file.writelines(lines)
-            print("Text appended successfully.")
-    else:
-        print("'</tc>' not found in the file.")
-
-
 def get_issue_details(issue_id_par):
     """
     Extracts the details of the issue creator from the issue object and stores them in global variables
@@ -115,6 +78,5 @@ issues_list = fetch_issues()
 for iss in issues_list:
     issue_id = iss['id']
     get_issue_details(issue_id)
-    update_extraordinary_md()
 
 print('Done!')
