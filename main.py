@@ -63,8 +63,7 @@ def update_extraordinary_md():
             src={issue_username_avatar_url}
             width="100px;"
             alt=""/><br/><sub><b>{name}</b></sub></a><br/></td>
-    </tc>
-    """
+    </tc>"""
     with open('Extraordinary.md', 'r') as f:
         lines = f.readlines()
 
@@ -78,7 +77,7 @@ def update_extraordinary_md():
     # Check if "</tc>" was found
     if last_tc_index is not None:
         # Append text in the next line
-        lines.insert(last_tc_index + 1, f"{boilerplate_text}\n")
+        lines.insert(last_tc_index, f"{boilerplate_text}\n")
 
         # Open the file in write mode and overwrite its contents
         with open('Extraordinary.md', "w") as file:
@@ -88,29 +87,32 @@ def update_extraordinary_md():
         print("'</tc>' not found in the file.")
 
 
-def get_issue_details():
+def get_issue_details(issue_id_par):
     """
     Extracts the details of the issue creator from the issue object and stores them in global variables
     :return: none
     """
-    for issue in issues:
-        global issue_username, issue_username_avatar_url, issue_id, issue_body, name, email
-        issue_username = issue['user']['login']
-        issue_username_avatar_url = issue['user']['avatar_url']
-        issue_id = issue['id']
-        issue_body = issue['body']
+    for issue in issues_list:
+        global issue_username, issue_username_avatar_url, issue_body, name, email
+        if issue['id'] == issue_id_par:
+            issue_username = issue['user']['login']
+            issue_username_avatar_url = issue['user']['avatar_url']
+            issue_body = issue['body']
 
-        # Find the position of the colon (:) to separate the label and the value
-        name_start = issue_body.find(':') + 2
-        email_start = issue_body.find('Email:') + 7
+            # Find the position of the colon (:) to separate the label and the value
+            name_start = issue_body.find(':') + 2
+            email_start = issue_body.find('Email:') + 7
 
-        # Extract the name and email using string slicing
-        name = issue_body[name_start:issue_body.find('\r')]
-        email = issue_body[email_start:]
+            # Extract the name and email using string slicing
+            name = issue_body[name_start:issue_body.find('\r')]
+            email = issue_body[email_start:]
 
 
-issues = fetch_issues()
-get_issue_details()
-update_extraordinary_md()
+issues_list = fetch_issues()
 
-print('test')
+for iss in issues_list:
+    issue_id = iss['id']
+    get_issue_details(issue_id)
+    update_extraordinary_md()
+
+print('Done!')
