@@ -117,6 +117,7 @@ for issue in issue_list:
     name_start = issue_body.find(':') + 2
     email_start = issue_body.find('Email:') + 7
     issue_creator = issue['user']['login']
+    issue_ID = issue['id']
 
     # Extract the name and email using string slicing
     NAME = issue_body[name_start:issue_body.find('\r')]
