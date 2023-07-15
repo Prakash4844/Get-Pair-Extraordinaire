@@ -16,7 +16,13 @@ os.chdir(PATH)
 # Set up GitHub repository details
 repository_name = 'Get-Pair-Extraordinaire'
 AUTHOR_NAME = 'Prakash4844'
-AUTHOR_EMAIL = os.environ.get('EMAIL')
+AUTHOR_EMAIL = os.environ.get('EMAIL', '81550376+Prakash4844@users.noreply.github.com')
+
+# Get GITHUB_TOKEN from GitHub secrets
+GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN')
+
+# Get GitHub token from GitHub secrets
+GITHUB_PAT = os.environ.get('STREAK_PAT', f'{GITHUB_TOKEN}')
 
 # Get today's date
 today = date.today().isoformat()
@@ -107,6 +113,25 @@ def git_cleanup():
     subprocess.run(['git', 'pull', 'origin', 'main'])
 
 
+def comment_on_issue(comment_text, issue_id):
+    global GITHUB_PAT
+    url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/issues/{issue_id}/comments"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_PAT}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    data = {
+        "body": comment_text
+    }
+
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+
+    if response.status_code == 201:
+        print("Comment added successfully.")
+    else:
+        print(f"Failed to add comment. Response: {response.text}")
+
+
 # Get the list of issues
 issue_list = fetch_issues()
 
@@ -125,9 +150,15 @@ for issue in issue_list:
     subprocess.run(['git', 'pull', 'origin', 'main'])
     update_served_json()
     git_process()
-    git_cleanup()
-#
-#
+
+    # Comment on Current Issue
+    comment = f"Hi @{issue_creator},\n\nProcess has been started for your request." \
+              "\n\nThank you for using Get Pair Extraordinaire! :smile:" \
+              "You will be kept updated."
+
+    comment_on_issue(comment, issue_ID)
+    # git_cleanup()
+
 # for issue in issues_list:
 #     issue_id = issue['id']
 #     current_selected_issue_details = get_issue_details(issue_id)
