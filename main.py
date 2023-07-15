@@ -106,6 +106,11 @@ def git_process():
 
 
 def git_cleanup():
+    """
+    Performs git operations to checkout the main branch, delete the local and remote branches.
+    :param: none
+    :return:
+    """
     subprocess.run(['git', 'checkout', 'main'])
     subprocess.run(['git', 'branch', '-D', f'{issue_creator}-request-{today}'])
     subprocess.run(['git', 'push', 'origin', '--delete', f'{issue_creator}-request-{today}'])
@@ -113,9 +118,17 @@ def git_cleanup():
     subprocess.run(['git', 'pull', 'origin', 'main'])
 
 
-def comment_on_issue(comment_text, issue_id):
+def comment_on_issue(comment_text, issue_no):
+    """
+    Adds a comment to the issue with the given Issue_number
+    :param comment_text:
+    :param issue_no: (This is the issue number to which the comment should be added)
+    :return:
+    """
     global GITHUB_PAT
-    url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/issues/{issue_id}/comments"
+
+    # Set up the URL, Data and headers for the API request
+    url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/issues/{issue_no}/comments"
     headers = {
         "Authorization": f"Bearer {GITHUB_PAT}",
         "Accept": "application/vnd.github.v3+json"
@@ -124,6 +137,7 @@ def comment_on_issue(comment_text, issue_id):
         "body": comment_text
     }
 
+    # Make the API POST request to add the comment and get the response
     response = requests.post(url, headers=headers, data=json.dumps(data))
 
     if response.status_code == 201:
