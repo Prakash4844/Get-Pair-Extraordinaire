@@ -1,8 +1,8 @@
 name: Pair_Extraordinaire
 
-on:
-  schedule:
-    - cron: '0 0 */31 * *' # This runs “At 00:00 on every 31st day-of-month.” 
+on: workflow_dispatch
+#  schedule:
+#    - cron: '0 0 */31 * *' # This runs “At 00:00 on every 31st day-of-month.”
     # * is a special character in YAML, so you have to quote this string
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - name: install python packages # install needed the packages needed
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+#          pip install -r requirements.txt
 
       - name: execute py script # run main.py
         run: python main.py
