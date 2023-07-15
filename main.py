@@ -93,7 +93,6 @@ def git_process():
     """
     # subprocess.run(['git', 'config', 'user.email', AUTHOR_EMAIL])
     # subprocess.run(['git', 'config', 'user.name', AUTHOR_NAME])
-    subprocess.run(['git', 'pull', 'origin', 'main'])
     subprocess.run(['git', 'checkout', '-b', f'{issue_creator}-request-{today}'])
     subprocess.run(['git', 'add', '.'])
     subprocess.run(['git', 'commit', '-m', f'Add {issue_creator} to the list of served users on {today}'])
@@ -122,6 +121,7 @@ for issue in issue_list:
     # Extract the name and email using string slicing
     NAME = issue_body[name_start:issue_body.find('\r')]
     EMAIL = issue_body[email_start:]
+    subprocess.run(['git', 'pull', 'origin', 'main'])
     update_served_json()
     git_process()
     git_cleanup()
