@@ -22,7 +22,7 @@ AUTHOR_EMAIL = os.environ.get('EMAIL', '81550376+Prakash4844@users.noreply.githu
 GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN')
 
 # Get GitHub token from GitHub secrets
-GITHUB_PAT = os.environ.get('STREAK_PAT', f'{GITHUB_TOKEN}')
+GITHUB_PAT = os.environ.get('EXTRAORDINAIREPAT', f'{GITHUB_TOKEN}')
 
 # Get today's date
 today = date.today().isoformat()
@@ -142,26 +142,21 @@ for issue in issue_list:
     name_start = issue_body.find(':') + 2
     email_start = issue_body.find('Email:') + 7
     issue_creator = issue['user']['login']
-    issue_ID = issue['id']
+    issue_number = issue['number']
 
     # Extract the name and email using string slicing
     NAME = issue_body[name_start:issue_body.find('\r')]
     EMAIL = issue_body[email_start:]
     subprocess.run(['git', 'pull', 'origin', 'main'])
-    update_served_json()
-    git_process()
+    # update_served_json()
+    # git_process()
 
     # Comment on Current Issue
     comment = f"Hi @{issue_creator},\n\nProcess has been started for your request." \
-              "\n\nThank you for using Get Pair Extraordinaire! :smile:" \
+              "\n\nThank you for using Get Pair Extraordinaire! :smile:\n" \
               "You will be kept updated."
 
-    comment_on_issue(comment, issue_ID)
+    comment_on_issue(comment, issue_number)
     # git_cleanup()
 
-# for issue in issues_list:
-#     issue_id = issue['id']
-#     current_selected_issue_details = get_issue_details(issue_id)
-#     print(current_selected_issue_details)
-#     git_process(current_selected_issue_details)
 print('Done!')
