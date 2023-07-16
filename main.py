@@ -241,9 +241,6 @@ for issue in issue_list:
     NAME = issue_body[name_start:issue_body.find('\r')]
     EMAIL = issue_body[email_start:]
 
-    # pull the latest changes from the remote repository
-    subprocess.run(['git', 'pull', 'origin', 'main'])
-
     # Set branch name for issue
     branch_name = f'{issue_creator}-request-{today}'
 
