@@ -57,13 +57,15 @@ def update_served_json():
     Updates the JSON file with the name and email of the user who has been served
     :return:
     """
+    data = {}
+
     try:
         with open(served_file) as file:
             data = json.load(file)
     except FileNotFoundError:
-        data = {}
+        pass
     except json.decoder.JSONDecodeError:
-        data = {}
+        pass
     finally:
         # Get current year, month, and week
         current_year = 'Year ' + str(datetime.now().year)
