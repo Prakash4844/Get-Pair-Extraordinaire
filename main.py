@@ -28,15 +28,6 @@ GITHUB_PAT = os.environ.get('EXTRAORDINAIREPAT', f'{GITHUB_TOKEN}')
 # Get today's date
 today = date.today().isoformat()
 
-# Set up GitHub API URL
-ISSUE_API_URL = f'https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/issues'
-
-# API Parameters for filtering issues by label and state
-API_PARAM = {
-    "labels": "Request",
-    "state": "open",
-}
-
 
 def fetch_issues():
     """
@@ -44,6 +35,15 @@ def fetch_issues():
     :param: none
     :return: list of issues with the given label and state or None if the request fails
     """
+    # Set up GitHub API URL
+    ISSUE_API_URL = f'https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/issues'
+
+    # API Parameters for filtering issues by label and state
+    API_PARAM = {
+        "labels": "Request",
+        "state": "open",
+    }
+
     issue_response = requests.get(url=ISSUE_API_URL, params=API_PARAM)
     if issue_response.status_code == 200:
         return issue_response.json()
