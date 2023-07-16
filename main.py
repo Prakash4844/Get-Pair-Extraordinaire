@@ -64,7 +64,7 @@ def update_served_json():
         data = {}
     except json.decoder.JSONDecodeError:
         data = {}
-
+    finally:
         # Get current year, month, and week
         current_year = 'Year ' + str(datetime.now().year)
         current_month = datetime.now().strftime('%B')
