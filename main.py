@@ -17,7 +17,7 @@ os.chdir(PATH)
 repository_name = 'Get-Pair-Extraordinaire'
 branch_name = None
 AUTHOR_NAME = 'Prakash4844'
-AUTHOR_EMAIL = os.environ.get('EMAIL', '81550376+Prakash4844@users.noreply.github.com')
+AUTHOR_EMAIL = os.environ.get('GIT_EMAIL', '81550376+Prakash4844@users.noreply.github.com')
 
 # Get GITHUB_TOKEN from GitHub secrets
 GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN')
@@ -103,7 +103,9 @@ def git_process():
     subprocess.run(['git', 'checkout', '-b', f'{branch_name}'])
     subprocess.run(['git', 'add', '.'])
     subprocess.run(['git', 'commit', '-m', f'Add {issue_creator} to the list of served users on {today}'])
-    subprocess.run(['git', 'push', '-u', 'origin', f'{branch_name}'])
+    subprocess.run(['git', 'push', '-u',
+                    f'https://{GITHUB_PAT}@github.com/{AUTHOR_NAME}/{repository_name}.git',
+                    f'{branch_name}'])
 
 
 def git_cleanup():
@@ -116,7 +118,8 @@ def git_cleanup():
     subprocess.run(['git', 'branch', '-D', f'{issue_creator}-request-{today}'])
     subprocess.run(['git', 'push', 'origin', '--delete', f'{issue_creator}-request-{today}'])
     subprocess.run(['git', 'fetch', '--prune'])
-    subprocess.run(['git', 'pull', 'origin', 'main'])
+    subprocess.run(['git', 'pull', f'https://{GITHUB_PAT}@github.com/{AUTHOR_NAME}/{repository_name}.git',
+                    'main'])
 
 
 def comment_on_issue(comment_text, issue_no):
@@ -260,9 +263,9 @@ for issue in issue_list:
 
     # Create Pull Request
     pr_title = f"Serving Pair-Extraordinaire, Add {issue_creator} to the list of served users on {today}"
-    pr_body = f"Committed with, coauthor {issue_creator} for providing Pair Extraordinaire badge Committed with, " \
-              f"coauthor {issue_creator} for providing Pair Extraordinaire badge This PR is in Relation " \
-              f"to Issue #{issue_number}"
+    pr_body = f"Committed with, co-author, {issue_creator} for providing Pair Extraordinaire badge " \
+              f"Committed with, coauthor {issue_creator} for providing Pair Extraordinaire badge This PR is" \
+              f" in Relation to Issue #{issue_number}"
 
     create_pull_request(pr_title, pr_body, head_branch=f"{branch_name}")
 
