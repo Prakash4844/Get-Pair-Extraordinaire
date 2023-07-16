@@ -98,11 +98,12 @@ def git_process():
     :param: none
     :return: none
     """
-    # subprocess.run(['git', 'config', 'user.email', AUTHOR_EMAIL])
-    # subprocess.run(['git', 'config', 'user.name', AUTHOR_NAME])
+    subprocess.run(['git', 'config', 'user.email', AUTHOR_EMAIL])
+    subprocess.run(['git', 'config', 'user.name', AUTHOR_NAME])
     subprocess.run(['git', 'checkout', '-b', f'{branch_name}'])
     subprocess.run(['git', 'add', '.'])
-    subprocess.run(['git', 'commit', '-m', f'Add {issue_creator} to the list of served users on {today}'])
+    subprocess.run(['git', 'commit', '-m', f'Add {issue_creator} to the list of served users on {today} '
+                                           f'\n\n\nCo-authored-by: {NAME} <{EMAIL}>'])
     subprocess.run(['git', 'push', '-u',
                     f'https://{GITHUB_PAT}@github.com/{AUTHOR_NAME}/{repository_name}.git',
                     f'{branch_name}'])
@@ -116,7 +117,9 @@ def git_cleanup():
     """
     subprocess.run(['git', 'checkout', 'main'])
     subprocess.run(['git', 'branch', '-D', f'{issue_creator}-request-{today}'])
-    subprocess.run(['git', 'push', 'origin', '--delete', f'{issue_creator}-request-{today}'])
+    subprocess.run(
+        ['git', 'push', f'https://{GITHUB_PAT}@github.com/{AUTHOR_NAME}/{repository_name}.git', '--delete',
+         f'{issue_creator}-request-{today}'])
     subprocess.run(['git', 'fetch', '--prune'])
     subprocess.run(['git', 'pull', f'https://{GITHUB_PAT}@github.com/{AUTHOR_NAME}/{repository_name}.git',
                     'main'])
@@ -214,7 +217,8 @@ def merge_pull_request(pull_number):
     }
     data = {
         "merge_method": "merge",  # possible values: merge, squash, rebase
-        "commit_message": f"merged PR for issue {issue_number}"  # custom merged commit message
+        "commit_message": f"merged PR for issue #{issue_number}, Created by {NAME} "  # custom merged commit
+        # message
     }
 
     response = requests.put(url, headers=headers, json=data)
@@ -223,6 +227,44 @@ def merge_pull_request(pull_number):
         print("Pull request merged successfully.")
     else:
         print(f"Failed to merge pull request. Response: {response.text}")
+
+
+def close_issue_with_comment(issue_no):
+    """
+    Close the issue with the given issue number
+    :param issue_no:
+    :return:
+    """
+    issue_url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/issues/{issue_no}"
+    comment_url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/issues/{issue_no}/comments"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_PAT}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+
+    # Add a comment to the closed issue
+    data = {
+        "body": f"Your Request has been processed in PR #{pr_number}"
+    }
+
+    response = requests.post(comment_url, headers=headers, data=json.dumps(data))
+
+    if response.status_code == 201:
+        print("Comment added successfully.")
+    else:
+        print(f"Failed to add comment. Response: {response.text}")
+
+    # Close the issue
+    data = {
+        "state": "closed"
+    }
+    response = requests.patch(issue_url, headers=headers, data=json.dumps(data))
+
+    if response.status_code == 200:
+        print("Issue closed successfully.")
+    else:
+        print(f"Failed to close issue. Response: {response.text}")
+        return
 
 
 # Get the list of issues
@@ -253,16 +295,14 @@ for issue in issue_list:
 
     # Comment on Current Issue
     Issue_comment = f"Hi @{issue_creator},\n\nProcess has been started for your request." \
-                    "\n\nThank you for using Get Pair Extraordinaire! :smile:\n" \
-                    "You will be kept updated."
+                    "\n\nThank you for using Get Pair Extraordinaire! :smile:\n"
 
     comment_on_issue(Issue_comment, issue_number)
 
     # Create Pull Request
     pr_title = f"Serving Pair-Extraordinaire, Add {issue_creator} to the list of served users on {today}"
-    pr_body = f"Committed with, co-author, {issue_creator} for providing Pair Extraordinaire badge " \
-              f"Committed with, coauthor {issue_creator} for providing Pair Extraordinaire badge This PR is" \
-              f" in Relation to Issue #{issue_number}"
+    pr_body = f"Committed with, co-author, @{issue_creator} for providing Pair Extraordinaire badge. " \
+              f"This PR is in Relation to Issue #{issue_number}"
 
     create_pull_request(pr_title, pr_body, head_branch=f"{branch_name}")
 
@@ -279,6 +319,10 @@ for issue in issue_list:
     # Merge Pull Request with pr_number
     merge_pull_request(pr_number)
 
+    # Close Issue with issue_number
+    close_issue_with_comment(issue_number)
+
+    # Clean up local and remote git repository
     git_cleanup()
 
 print('Done!')
