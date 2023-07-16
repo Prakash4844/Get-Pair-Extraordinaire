@@ -15,6 +15,7 @@ os.chdir(PATH)
 
 # Set up GitHub repository details
 repository_name = 'Get-Pair-Extraordinaire'
+branch_name = None
 AUTHOR_NAME = 'Prakash4844'
 AUTHOR_EMAIL = os.environ.get('EMAIL', '81550376+Prakash4844@users.noreply.github.com')
 
@@ -99,10 +100,10 @@ def git_process():
     """
     # subprocess.run(['git', 'config', 'user.email', AUTHOR_EMAIL])
     # subprocess.run(['git', 'config', 'user.name', AUTHOR_NAME])
-    subprocess.run(['git', 'checkout', '-b', f'{issue_creator}-request-{today}'])
+    subprocess.run(['git', 'checkout', '-b', f'{branch_name}'])
     subprocess.run(['git', 'add', '.'])
     subprocess.run(['git', 'commit', '-m', f'Add {issue_creator} to the list of served users on {today}'])
-    subprocess.run(['git', 'push', '-u', 'origin', f'{issue_creator}-request-{today}'])
+    subprocess.run(['git', 'push', '-u', 'origin', f'{branch_name}'])
 
 
 def git_cleanup():
@@ -125,8 +126,6 @@ def comment_on_issue(comment_text, issue_no):
     :param issue_no: (This is the issue number to which the comment should be added)
     :return:
     """
-    global GITHUB_PAT
-
     # Set up the URL, Data and headers for the API request
     url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/issues/{issue_no}/comments"
     headers = {
@@ -146,6 +145,83 @@ def comment_on_issue(comment_text, issue_no):
         print(f"Failed to add comment. Response: {response.text}")
 
 
+def create_pull_request(title, body, head_branch, base_branch="main"):
+    """
+    Creates a pull request in the given repository
+    :param base_branch:
+    :param head_branch:
+    :param title:
+    :param body:
+    :return:
+    """
+    url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/pulls"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_PAT}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    data = {
+        "title": title,  # Title of the pull request
+        "body": body,  # Body of the pull request
+        "head": head_branch,  # Branch where your changes are implemented (feature branch)
+        "base": base_branch  # Branch you want your changes pulled into (default: main)
+    }
+
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+
+    if response.status_code == 201:
+        print("Pull request created successfully.")
+    else:
+        print(f"Failed to create pull request. Response: {response.text}")
+
+
+def get_pull_requests():
+    """
+    Get a list of Open pull requests
+    :return:
+    """
+    url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/pulls"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_PAT}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    params = {
+        "state": "open"  # possible values: open, closed, all
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+
+    if response.status_code == 200:
+        prs = response.json()
+        return prs
+    else:
+        print(f"Failed to fetch pull requests. Response: {response.text}")
+        return None
+
+
+def merge_pull_request(pull_number):
+    """
+    merge the pull request identified by pull number to main branch
+    :param pull_number:
+    :return:
+    """
+    url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/pulls/{pull_number}/merge"
+    headers = {
+        "Authorization": f"Bearer {GITHUB_PAT}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    data = {
+        "merge_method": "merge",  # possible values: merge, squash, rebase
+        "commit_message": f"merged PR for issue {issue_number}"  # custom merged commit message
+    }
+
+    response = requests.put(url, headers=headers, json=data)
+
+    if response.status_code == 200:
+        print("Pull request merged successfully.")
+    else:
+        print(f"Failed to merge pull request. Response: {response.text}")
+
+
 # Get the list of issues
 issue_list = fetch_issues()
 
@@ -161,16 +237,48 @@ for issue in issue_list:
     # Extract the name and email using string slicing
     NAME = issue_body[name_start:issue_body.find('\r')]
     EMAIL = issue_body[email_start:]
+
+    # pull the latest changes from the remote repository
     subprocess.run(['git', 'pull', 'origin', 'main'])
-    # update_served_json()
-    # git_process()
+
+    # Set branch name for issue
+    branch_name = f'{issue_creator}-request-{today}'
+
+    # Update served.json
+    update_served_json()
+
+    # Perform git operations to create a new branch,
+    # add the changes, commit them, and push the branch to the remote repository with tracking enabled
+    git_process()
 
     # Comment on Current Issue
-    comment = f"Hi @{issue_creator},\n\nProcess has been started for your request." \
-              "\n\nThank you for using Get Pair Extraordinaire! :smile:\n" \
-              "You will be kept updated."
+    Issue_comment = f"Hi @{issue_creator},\n\nProcess has been started for your request." \
+                    "\n\nThank you for using Get Pair Extraordinaire! :smile:\n" \
+                    "You will be kept updated."
 
-    comment_on_issue(comment, issue_number)
-    # git_cleanup()
+    comment_on_issue(Issue_comment, issue_number)
+
+    # Create Pull Request
+    pr_title = f"Serving Pair-Extraordinaire, Add {issue_creator} to the list of served users on {today}"
+    pr_body = f"Committed with, coauthor {issue_creator} for providing Pair Extraordinaire badge Committed with, " \
+              f"coauthor {issue_creator} for providing Pair Extraordinaire badge This PR is in Relation " \
+              f"to Issue #{issue_number}"
+
+    create_pull_request(pr_title, pr_body, head_branch=f"{branch_name}")
+
+    # Get the list of pull requests
+    pr_list = get_pull_requests()
+
+    for pr in pr_list:
+        if pr['title'] == pr_title:
+            pr_number = pr['number']
+            break
+    else:
+        pr_number = 0
+
+    # Merge Pull Request with pr_number
+    merge_pull_request(pr_number)
+
+    git_cleanup()
 
 print('Done!')
