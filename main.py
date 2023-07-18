@@ -3,6 +3,7 @@ import subprocess
 import os
 import requests
 import json
+import re
 
 NAME = None
 EMAIL = None
@@ -115,7 +116,7 @@ def git_config_commit_push():
     """
     subprocess.run(['git', 'config', 'user.email', AUTHOR_EMAIL])
     subprocess.run(['git', 'config', 'user.name', AUTHOR_NAME])
-    # subprocess.run(['git', 'checkout', '-b', f'{branch_name}'])
+    subprocess.run(['git', 'checkout', '-b', f'{branch_name}'])
     subprocess.run(['git', 'add', '.'])
     subprocess.run(['git', 'commit', '-m', f'''Add {issue_creator} to the list of served users on {today}
                     \n\n\nCo-authored-by: {NAME} <{EMAIL}>'''])
@@ -298,7 +299,7 @@ for issue in issue_list:
 
     # Extract the name and email using string slicing
     NAME = issue_body[name_start:issue_body.find('\r')]
-    EMAIL = issue_body[email_start:]
+    EMAIL = re.search(r'[A-Za-z0-9]+@[a-z]+\.[A-Za-z]+', issue_body).group()
 
     # Set branch name for issue
     branch_name = f'{issue_creator}-request-{today}'
