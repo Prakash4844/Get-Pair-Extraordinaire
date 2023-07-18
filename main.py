@@ -1,5 +1,4 @@
 from datetime import date, datetime
-# from github import Github
 import subprocess
 import os
 import requests
@@ -54,7 +53,19 @@ def fetch_issues():
 
 def update_served_json():
     """
-    Updates the JSON file with the name and email of the user who has been served
+    Updates the JSON file with the name and email of the user who has been served in a structure like this:
+    {
+        "Year 2021": {
+            "January": {
+                "Week 01": {
+                    "2021-01-01": {
+                        "Messages": "served to Prakash4844
+                    }
+                }
+            }
+        }
+    }
+    :param: none
     :return:
     """
     data = {}
@@ -93,12 +104,12 @@ def update_served_json():
             json.dump(data, file, indent=4)
 
 
-def git_process():
+def git_config_commit_push():
     """
-    Performs git operations to create a new branch,
-    add the changes, commit them, and push the branch to the remote repository with tracking enabled
+    Performs git operations to configure the git user, create a new branch,
+    add the changes, commit them, and push/publish the branch to the remote repository with tracking enabled.
     :param: none
-    :return: none
+    :return:
     """
     subprocess.run(['git', 'config', 'user.email', AUTHOR_EMAIL])
     subprocess.run(['git', 'config', 'user.name', AUTHOR_NAME])
@@ -129,9 +140,9 @@ def git_cleanup():
 
 def comment_on_issue(comment_text, issue_no):
     """
-    Adds a comment to the issue with the given Issue_number
+    Adds a comment_text to the issue with the given Issue_number
     :param comment_text:
-    :param issue_no: (This is the issue number to which the comment should be added)
+    :param issue_no: (This is the issue number to which the comment should be added on)
     :return:
     """
     # Set up the URL, Data and headers for the API request
@@ -155,7 +166,8 @@ def comment_on_issue(comment_text, issue_no):
 
 def create_pull_request(title, body, head_branch, base_branch="main"):
     """
-    Creates a pull request in the given repository
+    Creates a pull request in the given repository from the head_branch to the base_branch
+    With the given title and body
     :param base_branch:
     :param head_branch:
     :param title:
@@ -184,7 +196,7 @@ def create_pull_request(title, body, head_branch, base_branch="main"):
 
 def get_pull_requests():
     """
-    Get a list of Open pull requests
+    Get a list of Open pull requests from the repository
     :return:
     """
     url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/pulls"
@@ -208,7 +220,7 @@ def get_pull_requests():
 
 def merge_pull_request(pull_number):
     """
-    merge the pull request identified by pull number to main branch
+    merge the pull request identified by pull number to main branch in the repository
     :param pull_number:
     :return:
     """
@@ -233,7 +245,7 @@ def merge_pull_request(pull_number):
 
 def close_issue_with_comment(issue_no):
     """
-    Close the issue with the given issue number
+    Close the issue with the given issue number in the repository along with a comment
     :param issue_no:
     :return:
     """
@@ -293,7 +305,7 @@ for issue in issue_list:
 
     # Perform git operations to create a new branch,
     # add the changes, commit them, and push the branch to the remote repository with tracking enabled
-    git_process()
+    git_config_commit_push()
 
     # Comment on Current Issue
     Issue_comment = f"Hi @{issue_creator},\n\nProcess has been started for your request." \
@@ -327,4 +339,4 @@ for issue in issue_list:
     # Clean up local and remote git repository
     git_cleanup()
 
-print('Done!')
+print('Served everyone on the list! ;)')
