@@ -115,8 +115,11 @@ def git_config_commit_push():
     subprocess.run(['git', 'config', 'user.name', AUTHOR_NAME])
     subprocess.run(['git', 'checkout', '-b', f'{branch_name}'])
     subprocess.run(['git', 'add', '.'])
-    subprocess.run(['git', 'commit', '-m', f'Add {issue_creator} to the list of served users on {today} '
-                                           f'\n\n\nCo-authored-by: {NAME} <{EMAIL}>'])
+    subprocess.run(['git', 'commit', '-m', f'''Add {issue_creator} to the list of served users on {today}
+
+
+    Co-authored-by: {NAME} <{EMAIL}>'''])
+
     subprocess.run(['git', 'push', '-u',
                     f'https://{GITHUB_PAT}@github.com/{AUTHOR_NAME}/{repository_name}.git',
                     f'{branch_name}'])
