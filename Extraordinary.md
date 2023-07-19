@@ -15,6 +15,13 @@
             <br />
             <sub><b>Prakash</b></sub>
         </a>
-    </td></tr>
+    </td>
+    <td align="center">
+            <a href="https://github.com/Nitinbhojsingh">
+                <img src="https://avatars.githubusercontent.com/u/80892374?v=4" width="100;" alt="Nitinbhojsingh"/>
+                <br />
+                <sub><b>Nitin Singh</b></sub>
+            </a>
+        </td></tr>
 </table>
 <!-- readme: contributors -end -->
