@@ -40,7 +40,6 @@ graph TD
 
 ```
 
-![main.py_flowchart](main.svg)
 </details>
 
 ### 2. Fetch Issues
@@ -66,7 +65,6 @@ When the `fetch_issue` function is called, it set up the GitHub API URL, set API
 GET request to the GitHub API. If the response status code is 200, it returns the JSON data.
 Otherwise, it prints an error message and returns `None`.
 
-![fetch_issues_flowchart](fetch_issue().svg)
 </details>
 
 ### 3. Update served.json
@@ -100,7 +98,6 @@ JSON structure exists for the current year, month, week, and date. If the struct
 it creates it. After that, it updates the JSON data with the required information and writes the updated
 data back to the file.
 
-![update_served_json_flowchart](Update_json().svg)
 
 </details>
 
@@ -128,7 +125,6 @@ the changes, commits them with a commit message that includes the issue_creator 
 and today information. Finally, it pushes and publish the branch to the remote repository specified by the
 GitHub URL.
 
-![git_config_commit_push_flowchart](git_config_commit_push().svg)
 
 </details>
 
@@ -155,7 +151,6 @@ response. After that, it checks the response status code. If the status code is 
 (indicating a successful request), it prints "Comment added successfully." Otherwise,
 it prints an error message that includes the response text.
 
-![comment_on_issue_flowchart](comment_on_issue().svg)
 
 </details>
 
@@ -182,7 +177,6 @@ the response. After that, it checks the response status code. If the status code
 (indicating a successful request), it prints "Pull request created successfully." Otherwise,
 it prints an error message that includes the response text
 
-![create_pull_request_flowchart](create_pull_request().svg)
 
 </details>
 
@@ -209,7 +203,6 @@ requests and obtain the response. After that, it checks the response status code
 (indicating a successful request), it retrieves the pull requests from the response and returns them.
 Otherwise, it prints an error message that includes the response text and returns None.
 
-![get_pull_requests_flowchart](get_pull_requests().svg)
 
 </details>
 
@@ -236,7 +229,6 @@ the response. After that, it checks the response status code. If the status code
 (indicating a successful request), it prints "Pull request merged successfully." Otherwise,
 it prints an error message that includes the response text.
 
-![merge_pull_request_flowchart](merge_pull_request().svg)
 
 </details>
 
@@ -272,7 +264,6 @@ issue URL with the appropriate data. Then, it checks the response status code ag
 (indicating a successful request), it prints "Issue closed successfully." Otherwise, it prints an error
 message that includes the response text.
 
-![close_issue_with_comment_flowchart](close_issue_with_comment().svg)
 
 </details>
 
@@ -299,7 +290,6 @@ remote branch using the GitHub URL, GITHUB_PAT, AUTHOR_NAME, repository_name, an
 it fetches the latest changes and prunes deleted branches. Finally, it pulls the latest changes from the main
 branch.
 
-![git_cleanup_flowchart](git_cleanup().svg)
 
 </details>
 
