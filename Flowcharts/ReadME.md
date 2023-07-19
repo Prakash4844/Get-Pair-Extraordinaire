@@ -296,7 +296,7 @@ branch.
 ### Complete flowchart
 
 <details>
-<summary>Click to expand(very big)</summary>
+<summary>Click to expand(very big, may not render on mobile devices)</summary>
 
 ```mermaid
 graph TD
