@@ -17,4 +17,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           image_size: 100 # Size of square images in the stack
-#          readme_path: Extraordinary.md # Path to the readme file
+          readme_path: Extraordinary.md # Path to the Extraordinaire readme
