@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Contribute List
         uses: akhilmhdh/contributors-readme-action@v2.3.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           image_size: 100 # Size of square images in the stack
           readme_path: Extraordinary.md # Path to the readme file
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
