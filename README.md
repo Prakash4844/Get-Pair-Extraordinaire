@@ -5,6 +5,8 @@
   <img src="Images/main.png" alt="Pair Extraordinaire"/>
 </div>
 
+![GitHub](https://img.shields.io/github/license/prakash4844/get-pair-extraordinaire?style=for-the-badge)
+
 Unlock the Badge of Collaboration Excellence with 'Pair Extraordinaire'!
 
 With a single issue, it automatically generates the prestigious 'Pair Extraordinaire' achievement badge for
