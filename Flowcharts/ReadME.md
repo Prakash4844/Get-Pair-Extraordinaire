@@ -138,7 +138,7 @@ graph LR
     A[comment_on_issue] --> B(Set up URL, Data, and Headers)
     B --> C(Make API POST request)
     C --> D{Response Status Code}
-    D -- 201 --> E(Print "Comment added successfully.")
+    D -- 201 --> E(Print 'Comment added successfully.')
     D -- Others --> F(Print Error Message)
 
 ```
@@ -164,7 +164,7 @@ graph LR
     A[create_pull_request] --> B(Set up URL, Headers, and Data)
     B --> C(Make API POST request)
     C --> D{Response Status Code}
-    D -- 201 --> E(Print "Pull request created successfully.")
+    D -- 201 --> E(Print 'Pull request created successfully.')
     D -- Others --> F(Print Error Message)
 
 ```
@@ -216,7 +216,7 @@ graph LR
     A[merge_pull_request] --> B(Set up URL, Headers, and Data)
     B --> C(Make API PUT request)
     C --> D{Response Status Code}
-    D -- 200 --> E(Print "Pull request merged successfully.")
+    D -- 200 --> E(Print 'Pull request merged successfully.')
     D -- Others --> F(Print Error Message)
 
 ```
@@ -242,11 +242,11 @@ graph LR
     A[close_issue_with_comment] --> B(Set up URLs and Headers)
     B --> C(Add comment to closed issue)
     C --> D{Response Status Code}
-    D -- 201 --> E(Print "Comment added successfully.")
+    D -- 201 --> E(Print 'Comment added successfully.')
     D -- Others --> F(Print Error Message)
     F --> G(Close the issue)
     G --> H{Response Status Code}
-    H -- 200 --> I(Print "Issue closed successfully.")
+    H -- 200 --> I(Print 'Issue closed successfully.')
     H -- Others --> J(Print Error Message)
 
 ```
