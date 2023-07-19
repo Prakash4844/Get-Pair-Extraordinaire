@@ -293,6 +293,113 @@ branch.
 
 </details>
 
+### Complete flowchart
+
+<details>
+<summary>Click to expand(very big)</summary>
+
+```mermaid
+graph TD
+    A[Start] --> B(Define Constants)
+    B --> C(Change Working Directory)
+    C --> D(Get GitHub Token)
+    D --> E(Get Today's Date)
+    E --> AE[Fetch Issues]
+        AE[fetch_issues] --> BE(Set up GitHub API URL)
+        BE --> CE(Set API Parameters)
+        CE --> DE[issue_response = requests.get]
+        DE --> EAE{Response Status Code}
+        EAE -- 200 --> FE(Return issue_response.json)
+        EAE -- Others --> GER(Print Error Message)
+        
+
+    FE --> G{Issues Exist?}
+    G -- Yes --> H(Process Each Issue)
+    G -- No --> Z(End)
+    H --> I(Parse Issue Details)
+    I --> JI(Update served.json)
+        JI[update_served_json] --> II(Try Block)
+        II --> JI[Open served_file]
+        JI --> KI{File Exists?}
+        KI -- Yes --> LI[Load JSON data]
+        KI -- No --> PI[Create JSON Structure]
+        LI --> NI(Get Current Year, Month, Week, and Date)
+        NI --> OI{JSON Structure Exists?}
+        OI -- No --> PI[Create JSON Structure]
+        OI -- Yes --> QI[Update JSON Data]
+        QI --> RI[Write JSON data to file]
+        RI --> SI[End]
+        PI --> SI
+        MI --> SI
+
+
+    RI --> K(Git Operations)
+        K[git_config_commit_push] --> UK(Config git user email)
+        UK --> VK(Config git user name)
+        VK --> WK(Create new branch)
+        WK --> XK(Add changes)
+        XK --> YK(Commit changes)
+        YK --> ZK(Push branch to remote repository)
+
+
+    ZK --> L(Comment on Issue)
+        L[comment_on_issue] --> HH(Set up URL, Data, and Headers)
+        HH --> II(Make API POST request)
+        II --> JJ{Response Status Code}
+        JJ -- 201 --> KK(Print 'Comment added successfully.')
+        JJ -- Others --> LL(Print Error Message)
+    
+
+
+    LL --> M(Create Pull Request)
+        M[create_pull_request] --> NN(Set up URL, Headers, and Data)
+        NN --> OO(Make API POST request)
+        OO --> PP{Response Status Code}
+        PP -- 201 --> QQ(Print 'Pull request created successfully.')
+        PP -- Others --> RR(Print Error Message)
+
+
+   RR --> N(Get Pull Requests)
+        N[get_pull_requests] --> TT(Set up URL, Headers, and Parameters)
+        TT --> UU(Make API GET request)
+        UU --> VV{Response Status Code}
+        VV -- 200 --> WW(Get Pull Requests)
+        VV -- Others --> XX(Print Error Message)
+
+    XX --> O(Merge Pull Request)
+        O[merge_pull_request] --> ZZ(Set up URL, Headers, and Data)
+        ZZ --> AAA(Make API PUT request)
+        AAA --> BBB{Response Status Code}
+        BBB -- 200 --> CCC(Print 'Pull request merged successfully.')
+        BBB -- Others --> DDD(Print Error Message)
+
+    DDD --> P(Close Issue with Comment)
+        P[close_issue_with_comment] --> FFF(Set up URLs and Headers)
+        FFF --> GGG(Add comment to closed issue)
+        GGG --> HHH{Response Status Code}
+        HHH -- 201 --> III(Print 'Comment added successfully.')
+        HHH -- Others --> JJJ(Print Error Message)
+        JJJ --> KKK(Close the issue)
+        KKK --> LLL{Response Status Code}
+        LLL -- 200 --> MMM(Print 'Issue closed successfully.')
+        LLL -- Others --> NNN(Print Error Message)
+
+
+    NNN --> Q(Cleanup Git)
+        Q[git_cleanup] --> BB(Checkout main branch)
+        BB --> CC(Delete local branch)
+        CC --> DD(Delete remote branch)
+        DD --> EE(Fetch with prune)
+        EE --> FF(Pull main branch)
+
+    FF --> H
+    H --> H
+    Q --> Z
+    Z --> R(End)
+```
+
+</details>
+
 ## References
 
 - [Mermaid JS](https://mermaid-js.github.io/mermaid/#/)
