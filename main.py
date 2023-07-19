@@ -133,10 +133,10 @@ def git_cleanup():
     :return:
     """
     subprocess.run(['git', 'checkout', 'main'])
-    subprocess.run(['git', 'branch', '-D', f'{issue_creator}-request-{today}'])
+    subprocess.run(['git', 'branch', '-D', f'{branch_name}'])
     subprocess.run(
         ['git', 'push', f'https://{GITHUB_PAT}@github.com/{AUTHOR_NAME}/{repository_name}.git', '--delete',
-         f'{issue_creator}-request-{today}'])
+         f'{branch_name}'])
     subprocess.run(['git', 'fetch', '--prune'])
     subprocess.run(['git', 'pull', f'https://{GITHUB_PAT}@github.com/{AUTHOR_NAME}/{repository_name}.git',
                     'main'])
@@ -293,7 +293,6 @@ for issue in issue_list:
     issue_body = issue['body']
     # Find the position of the colon (:) to separate the label and the value
     name_start = issue_body.find(':') + 2
-    email_start = issue_body.find('Email:') + 7
     issue_creator = issue['user']['login']
     issue_number = issue['number']
 
