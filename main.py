@@ -96,6 +96,9 @@ def update_served_json():
             data[current_year][current_month][current_week][current_date] = {}
         if NAME not in data[current_year][current_month][current_week][current_date]:
             data[current_year][current_month][current_week][current_date][NAME] = {}
+        else:
+            print("User has already been served, today.")
+            exit(0)
 
         # Update JSON data
         data[current_year][current_month][current_week][current_date][NAME].update({
@@ -196,6 +199,8 @@ def create_pull_request(title, body, head_branch, base_branch="main"):
         print("Pull request created successfully.")
     else:
         print(f"Failed to create pull request. Response: {response.text}")
+        print("Aborting the process.\nPlease check the logs and try again.")
+        exit(1)
 
 
 def get_pull_requests():
@@ -219,7 +224,8 @@ def get_pull_requests():
         return prs
     else:
         print(f"Failed to fetch pull requests. Response: {response.text}")
-        return None
+        print("Aborting the process.\nPlease check the logs and try again.")
+        exit(1)
 
 
 def merge_pull_request(pull_number):
@@ -245,6 +251,8 @@ def merge_pull_request(pull_number):
         print("Pull request merged successfully.")
     else:
         print(f"Failed to merge pull request. Response: {response.text}")
+        print("Aborting the process.\nPlease check the logs and try again.")
+        exit(1)
 
 
 def close_issue_with_comment(issue_no):
@@ -282,11 +290,15 @@ def close_issue_with_comment(issue_no):
         print("Issue closed successfully.")
     else:
         print(f"Failed to close issue. Response: {response.text}")
-        return
+        print(f"close manually issue #{issue_no}.")
 
 
 # Get the list of issues
 issue_list = fetch_issues()
+
+if issue_list is None:
+    print("No issues found.")
+    exit(0)
 
 # Loop through the list of issues and process each one
 for issue in issue_list:
