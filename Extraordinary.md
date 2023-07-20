@@ -29,6 +29,13 @@
                 <br />
                 <sub><b>DeepakEnveu</b></sub>
             </a>
+        </td>
+    <td align="center">
+            <a href="https://github.com/sagargoswami2001">
+                <img src="https://avatars.githubusercontent.com/u/88379870?v=4" width="100;" alt="sagargoswami2001"/>
+                <br />
+                <sub><b>Sagar Goswami</b></sub>
+            </a>
         </td></tr>
 </table>
 <!-- readme: contributors -end -->
