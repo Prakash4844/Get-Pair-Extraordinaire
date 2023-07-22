@@ -6,8 +6,7 @@
 
 ---
 
-<!-- readme: contributors -start -->
-<table>
+<table class="contributors">
 <tr>
     <td align="center">
         <a href="https://github.com/Prakash4844">
@@ -45,4 +44,8 @@
             </a>
         </td></tr>
 </table>
-<!-- readme: contributors -end -->
+
+
+
+
+

@@ -4,6 +4,7 @@ import os
 import requests
 import json
 import re
+from bs4 import BeautifulSoup
 
 NAME = None
 EMAIL = None
@@ -50,6 +51,65 @@ def fetch_issues():
     else:
         print("Failed to fetch issues. Status code:", issue_response.status_code)
         return None
+
+
+def add_entry_to_table(username, avatar_url, github_link):
+    """
+    Add a new entry to the table in the Markdown content
+    :param username:
+    :param avatar_url:
+    :param github_link:
+    :return:
+    """
+    # Read the Markdown content from the file
+    with open('Extraordinary.md', 'r') as f:
+        md_content = f.read()
+
+    # Parse the Markdown content using BeautifulSoup
+    soup = BeautifulSoup(md_content, 'html.parser')
+
+    # Find the table element with the 'contributors' class
+    table = soup.find('table', {'class': 'contributors'})
+
+    # If the table doesn't exist, create a new one
+    if not table:
+        table = soup.new_tag('table')
+        table['class'] = 'contributors'
+        soup.append(table)
+
+    # Find all the rows in the table
+    rows = table.find_all('tr')
+
+    # Get the last row in the table (where the new entry will be added)
+    last_row = rows[-1] if rows else None
+
+    # If the last row is full (6 entries), create a new row
+    if not last_row or len(last_row.find_all('td')) == 6:
+        new_row = soup.new_tag('tr')
+        table.append(new_row)
+        last_row = new_row
+
+    # Create a new cell (column) for the entry
+    cell = soup.new_tag('td')
+    last_row.append(cell)
+
+    # Create the link with the username, avatar, and GitHub link
+    link = soup.new_tag('a', href=github_link)
+    cell.append(link)
+
+    # Create the image tag for the avatar
+    img = soup.new_tag('img', src=avatar_url, width="100", alt=username)
+    link.append(img)
+
+    # Create the sub tag for the username
+    sub = soup.new_tag('sub')
+    sub.string = username
+    link.append(sub)
+    soup = soup.prettify()
+
+    # Write the Markdown content back to the file
+    with open('Extraordinary.md', 'w') as f:
+        f.write(soup)
 
 
 def update_served_json():
@@ -314,6 +374,10 @@ for issue in issue_list:
 
     # Set branch name for issue
     branch_name = f'{issue_creator}-request-{today}'
+
+    # Update Extraordinaire.md
+    add_entry_to_table(username=issue_creator, avatar_url=issue['user']['avatar_url'],
+                       github_link=issue['user']['url'])
 
     # Update served.json
     update_served_json()
