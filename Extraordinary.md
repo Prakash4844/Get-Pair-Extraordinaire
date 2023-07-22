@@ -62,11 +62,13 @@
     </sub>
    </a>
   </td>
-  <td>
+  <td align="center">
    <a href="https://api.github.com/users/alexis-coulombe">
     <img alt="alexis-coulombe" src="https://avatars.githubusercontent.com/u/22302902?v=4" width="100"/>
     <sub>
+    <b>
      alexis-coulombe
+    </b>
     </sub>
    </a>
   </td>
