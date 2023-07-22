@@ -36,6 +36,13 @@
                 <br />
                 <sub><b>Sagar Goswami</b></sub>
             </a>
+        </td>
+    <td align="center">
+            <a href="https://github.com/VasylHulpak">
+                <img src="https://avatars.githubusercontent.com/u/76429065?v=4" width="100;" alt="VasylHulpak"/>
+                <br />
+                <sub><b>VasylHulpak</b></sub>
+            </a>
         </td></tr>
 </table>
 <!-- readme: contributors -end -->
