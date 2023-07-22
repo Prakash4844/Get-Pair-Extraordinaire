@@ -40,6 +40,8 @@ OR
 
 if you have git set up on your system, you can run this command in your terminal to get your primary email:
 
+NOTE: We do not store your email anywhere. it is only used to give co-authorship.
+
 ```bash
 git config --global user.email
 ```
