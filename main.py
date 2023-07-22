@@ -330,7 +330,8 @@ def close_issue_with_comment(issue_no):
 
     # Add a comment to the closed issue
     data = {
-        "body": f"Your Request has been processed in PR #{pr_number}"
+        "body": f"Your Request has been processed in PR #{pr_number}\nThank you for your "
+                "contribution.\nPlease star the repository if you liked it.\n"
     }
 
     response = requests.post(comment_url, headers=headers, data=json.dumps(data))
