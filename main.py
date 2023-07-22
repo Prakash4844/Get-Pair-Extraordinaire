@@ -310,7 +310,7 @@ for issue in issue_list:
 
     # Extract the name and email using string slicing
     NAME = issue_body[name_start:issue_body.find('\r')]
-    EMAIL = re.search(r'[A-Za-z0-9]+@[a-z]+\.[A-Za-z]+', issue_body).group()
+    EMAIL = re.search(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b', issue_body).group()
 
     # Set branch name for issue
     branch_name = f'{issue_creator}-request-{today}'
