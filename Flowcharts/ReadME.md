@@ -402,6 +402,15 @@ graph TD
 
 </details>
 
+### Email Validation RegEx Diagram
+
+<details>
+<summary>Click to expand</summary>
+
+![Regex_email](../Images/Regex_for_Email.svg)
+
+</details>
+
 ## References
 
 - [Mermaid JS](https://mermaid-js.github.io/mermaid/#/)

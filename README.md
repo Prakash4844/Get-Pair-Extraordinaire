@@ -28,9 +28,20 @@ and stand out in the open-source community. Level up your collaboration game wit
   should be like
   this:
 
-```md
+```yaml
 Name: <Your Name>
 Email: <Your Email>
+```
+
+NOTE for Email: This should by your primary github email. you can check it by going to your profile >
+settings > email > Primary Email.
+
+OR
+
+if you have git set up on your system, you can run this command in your terminal to get your primary email:
+
+```bash
+git config --global user.email
 ```
 
 - Wait for upto 24 hours to get your `Pair Extraordinaire` badge. and you will be added
