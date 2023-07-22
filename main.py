@@ -90,7 +90,7 @@ def add_entry_to_table(username, avatar_url, github_link):
         last_row = new_row
 
     # Create a new cell (column) for the entry
-    cell = soup.new_tag('td')
+    cell = soup.new_tag('td', align='center')
     last_row.append(cell)
 
     # Create the link with the username, avatar, and GitHub link
@@ -98,13 +98,16 @@ def add_entry_to_table(username, avatar_url, github_link):
     cell.append(link)
 
     # Create the image tag for the avatar
-    img = soup.new_tag('img', src=avatar_url, width="100", alt=username)
+    img = soup.new_tag('img', src=avatar_url, width="100;", alt=username)
     link.append(img)
 
-    # Create the sub tag for the username
-    sub = soup.new_tag('sub')
-    sub.string = username
-    link.append(sub)
+    br = soup.new_tag('br')
+    link.append(br)
+
+    # Create the b tag for the username
+    b = soup.new_tag('b')
+    b.string = username
+    link.append(b)
     soup = soup.prettify()
 
     # Write the Markdown content back to the file
