@@ -1,8 +1,9 @@
 name: Pair_Extraordinaire
 
-on: workflow_dispatch
-#  schedule:
-#    - cron: '0 0 */31 * *' # This runs “At 00:00 on every 31st day-of-month.”
+on: # workflow_dispatch ## This is used to run workflow on demand
+  schedule:
+    - cron: '0 */8 * * *' # This runs at every eight hour, each day.
+    # (At minute 0 past every 8th hour.)
 # * is a special character in YAML, so you have to quote this string
 
 jobs:
