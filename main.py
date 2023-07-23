@@ -360,8 +360,8 @@ def close_issue_with_comment(issue_no):
 # Get the list of issues
 issue_list = fetch_issues()
 
-if issue_list is None:
-    print("No issues found.")
+if not issue_list:
+    print('No issue with "Request" Label Found found. Exiting...')
     exit(0)
 
 # Loop through the list of issues and process each one
