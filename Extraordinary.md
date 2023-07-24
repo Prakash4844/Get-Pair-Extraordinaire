@@ -4,7 +4,7 @@
   These are Extraordinary people
  </h3>
 </div>
----
+
 <table class="contributors">
  <tr>
   <td align="center">
@@ -61,8 +61,6 @@
     </b>
    </a>
   </td>
- </tr>
- <tr>
   <td align="center">
    <a href="https://api.github.com/users/RoboGodzilla">
     <img alt="RoboGodzilla" src="https://avatars.githubusercontent.com/u/62572567?v=4" width="100;"/>

@@ -84,7 +84,7 @@ def add_entry_to_table(username, avatar_url, github_link):
     last_row = rows[-1] if rows else None
 
     # If the last row is full (6 entries), create a new row
-    if not last_row or len(last_row.find_all('td')) == 6:
+    if not last_row or len(last_row.find_all('td')) == 7:
         new_row = soup.new_tag('tr')
         table.append(new_row)
         last_row = new_row
@@ -333,8 +333,8 @@ def close_issue_with_comment(issue_no):
 
     # Add a comment to the closed issue
     data = {
-        "body": f"Your Request has been processed in PR #{pr_number}\nThank you for your "
-                "contribution.\nPlease star the repository if you liked it.\n"
+        "body": f"Your Request has been processed in PR #{pr_number}\nThank you for your contribution."
+                "\n\nPlease star the repository if you liked it.\n"
     }
 
     response = requests.post(comment_url, headers=headers, data=json.dumps(data))
@@ -381,7 +381,7 @@ for issue in issue_list:
 
     # Update Extraordinaire.md
     add_entry_to_table(username=issue_creator, avatar_url=issue['user']['avatar_url'],
-                       github_link=issue['user']['url'])
+                       github_link=issue['user']['html_url'])
 
     # Update served.json
     update_served_json()
