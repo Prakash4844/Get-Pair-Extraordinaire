@@ -53,7 +53,7 @@
    </a>
   </td>
   <td align="center">
-   <a href="https://api.github.com/users/alexis-coulombe">
+   <a href="https://github.com/alexis-coulombe">
     <img alt="alexis-coulombe" src="https://avatars.githubusercontent.com/u/22302902?v=4" width="100;"/>
     <br/>
     <b>
@@ -62,7 +62,7 @@
    </a>
   </td>
   <td align="center">
-   <a href="https://api.github.com/users/RoboGodzilla">
+   <a href="https://github.com/RoboGodzilla">
     <img alt="RoboGodzilla" src="https://avatars.githubusercontent.com/u/62572567?v=4" width="100;"/>
     <br/>
     <b>
