@@ -361,7 +361,7 @@ def close_issue_with_comment(issue_no):
 issue_list = fetch_issues()
 
 if not issue_list:
-    print('No issue with "Request" Label Found found. Exiting...')
+    print('No issue with "Request" Label found. Exiting...')
     exit(0)
 
 # Loop through the list of issues and process each one
