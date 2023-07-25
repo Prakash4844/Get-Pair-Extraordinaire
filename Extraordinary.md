@@ -4,7 +4,6 @@
   These are Extraordinary people
  </h3>
 </div>
-
 <table class="contributors">
  <tr>
   <td align="center">
@@ -67,6 +66,17 @@
     <br/>
     <b>
      RoboGodzilla
+    </b>
+   </a>
+  </td>
+ </tr>
+ <tr>
+  <td align="center">
+   <a href="https://github.com/Manishak798">
+    <img alt="Manishak798" src="https://avatars.githubusercontent.com/u/90680330?v=4" width="100;"/>
+    <br/>
+    <b>
+     Manishak798
     </b>
    </a>
   </td>
