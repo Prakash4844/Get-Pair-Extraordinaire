@@ -80,5 +80,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/LeleDallas">
+    <img alt="LeleDallas" src="https://avatars.githubusercontent.com/u/71103219?v=4" width="100;"/>
+    <br/>
+    <b>
+     LeleDallas
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
