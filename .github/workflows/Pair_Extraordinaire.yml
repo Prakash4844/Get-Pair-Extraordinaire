@@ -25,6 +25,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11' # install the python version needed
+          cache: 'pip' # caching pip packages will speed up the workflow
 
       - name: install python packages # install needed the packages needed
         run: |
