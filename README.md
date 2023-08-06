@@ -46,7 +46,7 @@ NOTE: We do not store your email anywhere. it is only used to give co-authorship
 git config --global user.email
 ```
 
-- Wait for upto 8 hours to get your `Pair Extraordinaire` badge. and you will be added
+- Wait a minute or two to get your `Pair Extraordinaire` badge. and you will be added
   to `Extraordinaire.md`.
 - Enjoy your new badge.
 
