@@ -98,5 +98,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/tdemin">
+    <img alt="tdemin" src="https://avatars.githubusercontent.com/u/26599554?v=4" width="100;"/>
+    <br/>
+    <b>
+     tdemin
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
