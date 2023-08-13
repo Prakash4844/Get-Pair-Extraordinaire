@@ -125,5 +125,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/LinUwUxCat">
+    <img alt="LinUwUxCat" src="https://avatars.githubusercontent.com/u/46047705?v=4" width="100;"/>
+    <br/>
+    <b>
+     LinUwUxCat
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
