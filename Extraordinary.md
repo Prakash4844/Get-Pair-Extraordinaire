@@ -145,5 +145,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/mademoiselle-chantal">
+    <img alt="mademoiselle-chantal" src="https://avatars.githubusercontent.com/u/120084609?v=4" width="100;"/>
+    <br/>
+    <b>
+     mademoiselle-chantal
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
