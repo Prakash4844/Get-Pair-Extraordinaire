@@ -154,5 +154,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/PavelMal">
+    <img alt="PavelMal" src="https://avatars.githubusercontent.com/u/12068504?v=4" width="100;"/>
+    <br/>
+    <b>
+     PavelMal
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
