@@ -172,5 +172,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/konjotech">
+    <img alt="konjotech" src="https://avatars.githubusercontent.com/u/142959308?v=4" width="100;"/>
+    <br/>
+    <b>
+     konjotech
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
