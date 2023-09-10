@@ -181,5 +181,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/Navid-Rahman">
+    <img alt="Navid-Rahman" src="https://avatars.githubusercontent.com/u/77515075?v=4" width="100;"/>
+    <br/>
+    <b>
+     Navid-Rahman
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
