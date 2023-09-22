@@ -200,4 +200,15 @@
    </a>
   </td>
  </tr>
+ <tr>
+  <td align="center">
+   <a href="https://github.com/Araujo-Raiara">
+    <img alt="Araujo-Raiara" src="https://avatars.githubusercontent.com/u/62944970?v=4" width="100;"/>
+    <br/>
+    <b>
+     Araujo-Raiara
+    </b>
+   </a>
+  </td>
+ </tr>
 </table>
