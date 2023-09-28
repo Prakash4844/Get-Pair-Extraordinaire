@@ -228,5 +228,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/michaelpaglia">
+    <img alt="michaelpaglia" src="https://avatars.githubusercontent.com/u/67076465?v=4" width="100;"/>
+    <br/>
+    <b>
+     michaelpaglia
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
