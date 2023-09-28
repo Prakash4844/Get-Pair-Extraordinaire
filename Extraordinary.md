@@ -219,5 +219,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/James-Oswald">
+    <img alt="James-Oswald" src="https://avatars.githubusercontent.com/u/43485956?v=4" width="100;"/>
+    <br/>
+    <b>
+     James-Oswald
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
