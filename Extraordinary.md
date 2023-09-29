@@ -237,5 +237,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/jacobpclouse">
+    <img alt="jacobpclouse" src="https://avatars.githubusercontent.com/u/58919856?v=4" width="100;"/>
+    <br/>
+    <b>
+     jacobpclouse
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
