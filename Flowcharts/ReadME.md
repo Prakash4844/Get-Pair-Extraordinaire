@@ -415,6 +415,7 @@ graph TD
 
 - [Mermaid JS](https://mermaid-js.github.io/mermaid/#/)
 - [Mermaid Live Editor](https://mermaid-js.github.io/mermaid-live-editor)
+- [REGEX Diagram](https://regexper.com/)
 
 ## License
 
