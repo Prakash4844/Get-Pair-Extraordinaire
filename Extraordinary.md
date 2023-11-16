@@ -330,4 +330,15 @@
    </a>
   </td>
  </tr>
+ <tr>
+  <td align="center">
+   <a href="https://github.com/Aejkatappaja">
+    <img alt="Aejkatappaja" src="https://avatars.githubusercontent.com/u/119339477?v=4" width="100;"/>
+    <br/>
+    <b>
+     Aejkatappaja
+    </b>
+   </a>
+  </td>
+ </tr>
 </table>
