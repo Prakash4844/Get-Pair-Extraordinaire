@@ -385,5 +385,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/danilosoarespinheiro">
+    <img alt="danilosoarespinheiro" src="https://avatars.githubusercontent.com/u/3169383?v=4" width="100;"/>
+    <br/>
+    <b>
+     danilosoarespinheiro
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
