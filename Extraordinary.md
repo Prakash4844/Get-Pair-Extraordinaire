@@ -432,5 +432,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/the-1Riddle">
+    <img alt="the-1Riddle" src="https://avatars.githubusercontent.com/u/154701770?v=4" width="100;"/>
+    <br/>
+    <b>
+     the-1Riddle
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
