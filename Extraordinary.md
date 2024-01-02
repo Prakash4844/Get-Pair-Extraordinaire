@@ -441,5 +441,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/AdityaNow">
+    <img alt="AdityaNow" src="https://avatars.githubusercontent.com/u/152274255?v=4" width="100;"/>
+    <br/>
+    <b>
+     AdityaNow
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
