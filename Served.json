@@ -268,5 +268,16 @@
                 }
             }
         }
+    },
+    "Year 2024": {
+        "January": {
+            "Week 00": {
+                "2024-01-02": {
+                    "Aditya Mali": {
+                        "Messages": "served to Aditya Mali (adityamali1208@gmail.com) on 2024-01-02"
+                    }
+                }
+            }
+        }
     }
 }
