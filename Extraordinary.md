@@ -470,5 +470,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/nizamuddinsyed">
+    <img alt="nizamuddinsyed" src="https://avatars.githubusercontent.com/u/44087478?v=4" width="100;"/>
+    <br/>
+    <b>
+     nizamuddinsyed
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
