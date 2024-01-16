@@ -479,5 +479,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/ternera">
+    <img alt="ternera" src="https://avatars.githubusercontent.com/u/128944848?v=4" width="100;"/>
+    <br/>
+    <b>
+     ternera
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
