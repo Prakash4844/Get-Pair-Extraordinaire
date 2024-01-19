@@ -506,5 +506,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/NorlaXx">
+    <img alt="NorlaXx" src="https://avatars.githubusercontent.com/u/72524452?v=4" width="100;"/>
+    <br/>
+    <b>
+     NorlaXx
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
