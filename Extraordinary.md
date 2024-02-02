@@ -525,4 +525,15 @@
    </a>
   </td>
  </tr>
+ <tr>
+  <td align="center">
+   <a href="https://github.com/wischi-chr">
+    <img alt="wischi-chr" src="https://avatars.githubusercontent.com/u/2495113?v=4" width="100;"/>
+    <br/>
+    <b>
+     wischi-chr
+    </b>
+   </a>
+  </td>
+ </tr>
 </table>
