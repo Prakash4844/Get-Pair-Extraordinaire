@@ -515,5 +515,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/Adrimr7">
+    <img alt="Adrimr7" src="https://avatars.githubusercontent.com/u/104356345?v=4" width="100;"/>
+    <br/>
+    <b>
+     Adrimr7
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
