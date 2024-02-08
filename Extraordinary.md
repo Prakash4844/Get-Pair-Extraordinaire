@@ -553,5 +553,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/DevRishii">
+    <img alt="DevRishii" src="https://avatars.githubusercontent.com/u/48538864?v=4" width="100;"/>
+    <br/>
+    <b>
+     DevRishii
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
