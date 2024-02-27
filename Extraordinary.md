@@ -571,5 +571,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/alexandroivaldez">
+    <img alt="alexandroivaldez" src="https://avatars.githubusercontent.com/u/95511516?v=4" width="100;"/>
+    <br/>
+    <b>
+     alexandroivaldez
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
