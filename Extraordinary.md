@@ -609,5 +609,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/Akash-Singh04">
+    <img alt="Akash-Singh04" src="https://avatars.githubusercontent.com/u/114267538?v=4" width="100;"/>
+    <br/>
+    <b>
+     Akash-Singh04
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
