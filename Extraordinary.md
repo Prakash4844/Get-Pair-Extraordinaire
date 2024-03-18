@@ -627,5 +627,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/silicone-fig">
+    <img alt="silicone-fig" src="https://avatars.githubusercontent.com/u/94190630?v=4" width="100;"/>
+    <br/>
+    <b>
+     silicone-fig
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
