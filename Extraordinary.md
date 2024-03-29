@@ -674,5 +674,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/Sidmaz666">
+    <img alt="Sidmaz666" src="https://avatars.githubusercontent.com/u/81381178?v=4" width="100;"/>
+    <br/>
+    <b>
+     Sidmaz666
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
