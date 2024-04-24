@@ -720,4 +720,15 @@
    </a>
   </td>
  </tr>
+ <tr>
+  <td align="center">
+   <a href="https://github.com/BlueBoopYT">
+    <img alt="BlueBoopYT" src="https://avatars.githubusercontent.com/u/167948714?v=4" width="100;"/>
+    <br/>
+    <b>
+     BlueBoopYT
+    </b>
+   </a>
+  </td>
+ </tr>
 </table>
