@@ -739,5 +739,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/tridentinho">
+    <img alt="tridentinho" src="https://avatars.githubusercontent.com/u/48001609?v=4" width="100;"/>
+    <br/>
+    <b>
+     tridentinho
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
