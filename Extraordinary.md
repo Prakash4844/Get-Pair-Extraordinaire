@@ -961,5 +961,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/SpectraX07">
+    <img alt="SpectraX07" src="https://avatars.githubusercontent.com/u/125028724?v=4" width="100;"/>
+    <br/>
+    <b>
+     SpectraX07
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
