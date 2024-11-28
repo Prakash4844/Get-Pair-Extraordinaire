@@ -1091,5 +1091,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/maxisimonazzi">
+    <img alt="maxisimonazzi" src="https://avatars.githubusercontent.com/u/53944652?v=4" width="100;"/>
+    <br/>
+    <b>
+     maxisimonazzi
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
