@@ -359,15 +359,6 @@
    </a>
   </td>
   <td align="center">
-   <a href="https://github.com/noelb1">
-    <img alt="noelb1" src="https://avatars.githubusercontent.com/u/26370465?v=4" width="100;"/>
-    <br/>
-    <b>
-     noelb1
-    </b>
-   </a>
-  </td>
-  <td align="center">
    <a href="https://github.com/eaingaran">
     <img alt="eaingaran" src="https://avatars.githubusercontent.com/u/4747485?v=4" width="100;"/>
     <br/>
@@ -1191,15 +1182,6 @@
     <br/>
     <b>
      pjaworski1
-    </b>
-   </a>
-  </td>
-  <td align="center">
-   <a href="https://github.com/gerwld">
-    <img alt="gerwld" src="https://avatars.githubusercontent.com/u/47056812?v=4" width="100;"/>
-    <br/>
-    <b>
-     gerwld
     </b>
    </a>
   </td>
