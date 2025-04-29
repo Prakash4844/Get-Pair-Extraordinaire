@@ -1240,4 +1240,15 @@
    </a>
   </td>
  </tr>
+ <tr>
+  <td align="center">
+   <a href="https://github.com/DarkSylver">
+    <img alt="DarkSylver" src="https://avatars.githubusercontent.com/u/25886725?v=4" width="100;"/>
+    <br/>
+    <b>
+     DarkSylver
+    </b>
+   </a>
+  </td>
+ </tr>
 </table>
