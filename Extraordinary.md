@@ -1342,5 +1342,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/Priestytheplushie">
+    <img alt="Priestytheplushie" src="https://avatars.githubusercontent.com/u/142067979?v=4" width="100;"/>
+    <br/>
+    <b>
+     Priestytheplushie
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
