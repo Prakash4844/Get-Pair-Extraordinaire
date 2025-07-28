@@ -1370,4 +1370,15 @@
    </a>
   </td>
  </tr>
+ <tr>
+  <td align="center">
+   <a href="https://github.com/AfanSetyadi">
+    <img alt="AfanSetyadi" src="https://avatars.githubusercontent.com/u/25237056?v=4" width="100;"/>
+    <br/>
+    <b>
+     AfanSetyadi
+    </b>
+   </a>
+  </td>
+ </tr>
 </table>
