@@ -1398,5 +1398,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/SilasPuma">
+    <img alt="SilasPuma" src="https://avatars.githubusercontent.com/u/114674696?v=4" width="100;"/>
+    <br/>
+    <b>
+     SilasPuma
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
