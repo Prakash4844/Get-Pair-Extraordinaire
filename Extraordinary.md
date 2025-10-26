@@ -1454,5 +1454,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/m4cd4r4">
+    <img alt="m4cd4r4" src="https://avatars.githubusercontent.com/u/47749761?v=4" width="100;"/>
+    <br/>
+    <b>
+     m4cd4r4
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
