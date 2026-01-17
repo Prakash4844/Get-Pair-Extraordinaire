@@ -62,3 +62,10 @@ git config --global user.email
 - [GitHub API v3 - Pull Requests](https://docs.github.com/en/rest/reference/pulls)
 - [GitHub API v3 - Repositories](https://docs.github.com/en/rest/reference/repos)
 - [GitHub API v3 - Users](https://docs.github.com/en/rest/reference/users)
+
+### Features:
+
+- Provides `Pair Extraordinaire` badge for your GitHub profile.
+- Only a single issue is needed to be created with the given issue template.
+- It will automatically add your name to `Extraordinaire.md`.
+- **This project is open for contributions!**  <!-- Add this line -->
