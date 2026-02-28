@@ -1538,6 +1538,11 @@
    </a>
   </td>
   <td align="center">
+   <a href="https://github.com/samaniegolouie">
+    <img alt="HadrielWonda" src="https://avatars.githubusercontent.com/u/48710475?v=4" width="100;"/>
+    <br/>
+    <b>
+     samaniegolouie
    <a href="https://github.com/sdg5-hub">
     <img alt="sdg5-hub" src="https://avatars.githubusercontent.com/u/181535672?v=4" width="100;"/>
     <br/>
