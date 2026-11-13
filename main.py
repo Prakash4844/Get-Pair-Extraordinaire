@@ -278,7 +278,7 @@ for issue in issue_list:
     issue_number = issue['number']
 
     # Parse fields by label so both LF and CRLF issue bodies are supported.
-    name_match = re.search(r'(?im)^Name:\s*(.+?)\s*, issue_body)
+    name_match = re.search(r'(?im)^Name:\s*(.+?)\s*
     email_match = re.search(
         r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b',
         issue_body,
@@ -351,7 +351,7 @@ for issue in issue_list:
 print('Served everyone on the list! ;)')
 , issue_body)
     email_match = re.search(
-        r'\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,7}\\b',
+        r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b',
         issue_body,
     )
     if not name_match or not email_match:
