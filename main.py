@@ -278,78 +278,7 @@ for issue in issue_list:
     issue_number = issue['number']
 
     # Parse fields by label so both LF and CRLF issue bodies are supported.
-    name_match = re.search(r'(?im)^Name:\s*(.+?)\s*
-    email_match = re.search(
-        r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b',
-        issue_body,
-    )
-    if not name_match or not email_match:
-        print(f"Skipping issue #{issue_number}: missing name or email.")
-        continue
-    NAME = name_match.group(1).strip()
-    EMAIL = email_match.group()
-
-
-    # Set branch name for issue
-    branch_name = f'{issue_creator}-request-{today}'
-
-    # Record this request once, keyed by the GitHub account rather than display name.
-    legacy_times = count_contributor_entries(
-        'Extraordinary.md', issue['user']['html_url']
-    )
-    times, already_processed = update_served_json(
-        issue_creator, issue_number, legacy_times
-    )
-    if already_processed:
-        print(f"Issue #{issue_number} has already been recorded. Skipping.")
-        continue
-
-    # Keep one Markdown entry per GitHub account and refresh its usage count.
-    add_entry_to_table(
-        username=issue_creator,
-        avatar_url=issue['user']['avatar_url'],
-        github_link=issue['user']['html_url'],
-        times=times,
-    )
-
-    # Perform git operations to create a new branch,
-    # add the changes, commit them, and push the branch to the remote repository with tracking enabled
-    git_config_commit_push()
-
-    # Comment on Current Issue
-    Issue_comment = f"Hi @{issue_creator},\n\nProcess has been started for your request." \
-                    "\n\nThank you for using Get Pair Extraordinaire! :smile:\n"
-
-    comment_on_issue(Issue_comment, issue_number)
-
-    # Create Pull Request
-    pr_title = f"Serving Pair-Extraordinaire, Add {issue_creator} to the list of served users on {today}"
-    pr_body = f"Committed with, co-author, @{issue_creator} for providing Pair Extraordinaire badge. " \
-              f"This PR is in Relation to Issue #{issue_number}"
-
-    create_pull_request(pr_title, pr_body, head_branch=f"{branch_name}")
-
-    # Get the list of pull requests
-    pr_list = get_pull_requests()
-
-    for pr in pr_list:
-        if pr['title'] == pr_title:
-            pr_number = pr['number']
-            break
-    else:
-        pr_number = 0
-
-    # Merge Pull Request with pr_number
-    merge_pull_request(pr_number)
-
-    # Close Issue with issue_number
-    close_issue_with_comment(issue_number)
-
-    # Clean up local and remote git repository
-    git_cleanup()
-
-print('Served everyone on the list! ;)')
-, issue_body)
+    name_match = re.search(r'(?im)^Name:\s*(.+?)\s*$', issue_body)
     email_match = re.search(
         r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b',
         issue_body,
