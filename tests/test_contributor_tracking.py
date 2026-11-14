@@ -14,7 +14,7 @@ from contributor_tracking import (
 
 class RequestParsingTests(unittest.TestCase):
     def test_parses_lf_and_crlf_request_fields(self):
-        for newline in ("\n", "\\r\n"):
+        for newline in ("\n", "\r\n"):
             with self.subTest(newline=repr(newline)):
                 self.assertEqual(
                     parse_request_fields(
@@ -28,7 +28,7 @@ class RequestParsingTests(unittest.TestCase):
             parse_request_fields("Name:\nEmail: ada@example.com")
         )
         self.assertIsNone(
-            parse_request_fields("Name:   \\r\nEmail: ada@example.com")
+            parse_request_fields("Name:   \r\nEmail: ada@example.com")
         )
 
     def test_rejects_missing_or_blank_email(self):
@@ -48,7 +48,10 @@ class RequestRecoveryTests(unittest.TestCase):
         }
         self.assertIs(
             find_request_pull_request(
-                [{"number": 1, "title": "Unrelated", "body": "Issue #9"}, matching_pr],
+                [
+                    {"number": 1, "title": "Unrelated", "body": "Issue #9"},
+                    matching_pr,
+                ],
                 87,
             ),
             matching_pr,
