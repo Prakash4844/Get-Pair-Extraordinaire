@@ -1,10 +1,16 @@
-from datetime import date, datetime
+from datetime import date
 import subprocess
 import os
 import requests
 import json
 import re
-from bs4 import BeautifulSoup
+from contributor_tracking import (
+    count_contributor_entries,
+    record_contributor,
+    update_contributor_table,
+    parse_request_fields,
+    find_request_pull_request,
+)
 
 NAME = None
 EMAIL = None
@@ -53,124 +59,27 @@ def fetch_issues():
         return None
 
 
-def add_entry_to_table(username, avatar_url, github_link):
-    """
-    Add a new entry to the table in the Markdown content
-    :param username:
-    :param avatar_url:
-    :param github_link:
-    :return:
-    """
-    # Read the Markdown content from the file
-    with open('Extraordinary.md', 'r') as f:
-        md_content = f.read()
-
-    # Parse the Markdown content using BeautifulSoup
-    soup = BeautifulSoup(md_content, 'html.parser')
-
-    # Find the table element with the 'contributors' class
-    table = soup.find('table', {'class': 'contributors'})
-
-    # If the table doesn't exist, create a new one
-    if not table:
-        table = soup.new_tag('table')
-        table['class'] = 'contributors'
-        soup.append(table)
-
-    # Find all the rows in the table
-    rows = table.find_all('tr')
-
-    # Get the last row in the table (where the new entry will be added)
-    last_row = rows[-1] if rows else None
-
-    # If the last row is full (6 entries), create a new row
-    if not last_row or len(last_row.find_all('td')) == 7:
-        new_row = soup.new_tag('tr')
-        table.append(new_row)
-        last_row = new_row
-
-    # Create a new cell (column) for the entry
-    cell = soup.new_tag('td', align='center')
-    last_row.append(cell)
-
-    # Create the link with the username, avatar, and GitHub link
-    link = soup.new_tag('a', href=github_link)
-    cell.append(link)
-
-    # Create the image tag for the avatar
-    img = soup.new_tag('img', src=avatar_url, width="100;", alt=username)
-    link.append(img)
-
-    br = soup.new_tag('br')
-    link.append(br)
-
-    # Create the b tag for the username
-    b = soup.new_tag('b')
-    b.string = username
-    link.append(b)
-    soup = soup.prettify()
-
-    # Write the Markdown content back to the file
-    with open('Extraordinary.md', 'w') as f:
-        f.write(soup)
+def add_entry_to_table(username, avatar_url, github_link, times):
+    """Add or update one contributor cell without creating duplicate accounts."""
+    update_contributor_table(
+        markdown_path='Extraordinary.md',
+        username=username,
+        avatar_url=avatar_url,
+        github_link=github_link,
+        times=times,
+    )
 
 
-def update_served_json():
-    """
-    Updates the JSON file with the name and email of the user who has been served in a structure like this:
-    {
-        "Year 2021": {
-            "January": {
-                "Week 01": {
-                    "2021-01-01": {
-                        "Messages": "served to Prakash4844
-                    }
-                }
-            }
-        }
-    }
-    :param: none
-    :return:
-    """
-    data = {}
-
-    try:
-        with open(served_file) as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        pass
-    except json.decoder.JSONDecodeError:
-        pass
-    finally:
-        # Get current year, month, and week
-        current_year = 'Year ' + str(datetime.now().year)
-        current_month = datetime.now().strftime('%B')
-        current_week = 'Week ' + datetime.now().strftime('%U')
-        current_date = today
-
-        # Create JSON structure if it doesn't exist
-        if current_year not in data:
-            data[current_year] = {}
-        if current_month not in data[current_year]:
-            data[current_year][current_month] = {}
-        if current_week not in data[current_year][current_month]:
-            data[current_year][current_month][current_week] = {}
-        if current_date not in data[current_year][current_month][current_week]:
-            data[current_year][current_month][current_week][current_date] = {}
-        if NAME not in data[current_year][current_month][current_week][current_date]:
-            data[current_year][current_month][current_week][current_date][NAME] = {}
-        else:
-            print("User has already been served, today.")
-            exit(0)
-
-        # Update JSON data
-        data[current_year][current_month][current_week][current_date][NAME].update({
-            'Messages': "served to " + NAME + " (" + EMAIL + ") on " + today,
-        })
-
-        # Write updated JSON data back to file
-        with open(served_file, 'w') as file:
-            json.dump(data, file, indent=4)
+def update_served_json(username, request_id, initial_times=0):
+    """Record a request under a stable GitHub account key."""
+    return record_contributor(
+        served_path=served_file,
+        username=username,
+        display_name=NAME,
+        served_date=today,
+        request_id=request_id,
+        initial_times=initial_times,
+    )
 
 
 def git_config_commit_push():
@@ -266,9 +175,9 @@ def create_pull_request(title, body, head_branch, base_branch="main"):
         exit(1)
 
 
-def get_pull_requests():
+def get_pull_requests(state="all"):
     """
-    Get a list of Open pull requests from the repository
+    Get pull requests from the repository, including closed PRs for recovery
     :return:
     """
     url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/pulls"
@@ -277,7 +186,7 @@ def get_pull_requests():
         "Accept": "application/vnd.github.v3+json"
     }
     params = {
-        "state": "open"  # possible values: open, closed, all
+        "state": state  # possible values: open, closed, all
     }
 
     response = requests.get(url, headers=headers, params=params)
@@ -318,7 +227,7 @@ def merge_pull_request(pull_number):
         exit(1)
 
 
-def close_issue_with_comment(issue_no):
+def close_issue_with_comment(issue_no, pull_number):
     """
     Close the issue with the given issue number in the repository along with a comment
     :param issue_no:
@@ -333,7 +242,7 @@ def close_issue_with_comment(issue_no):
 
     # Add a comment to the closed issue
     data = {
-        "body": f"Your Request has been processed in PR #{pr_number}\nThank you for your contribution."
+        "body": f"Your Request has been processed in PR #{pull_number}\nThank you for your contribution."
                 "\n\nPlease star the repository if you liked it.\n"
     }
 
@@ -366,25 +275,65 @@ if not issue_list:
 
 # Loop through the list of issues and process each one
 for issue in issue_list:
-    issue_body = issue['body']
-    # Find the position of the colon (:) to separate the label and the value
-    name_start = issue_body.find(':') + 2
+    issue_body = issue['body'] or ''
     issue_creator = issue['user']['login']
     issue_number = issue['number']
 
-    # Extract the name and email using string slicing
-    NAME = issue_body[name_start:issue_body.find('\r')]
-    EMAIL = re.search(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b', issue_body).group()
+    # Parse labeled fields without allowing whitespace to consume a newline.
+    parsed_fields = parse_request_fields(issue_body)
+    if parsed_fields is None:
+        print(f"Skipping issue #{issue_number}: missing name or email.")
+        continue
+    NAME, EMAIL = parsed_fields
+
 
     # Set branch name for issue
     branch_name = f'{issue_creator}-request-{today}'
 
-    # Update Extraordinaire.md
-    add_entry_to_table(username=issue_creator, avatar_url=issue['user']['avatar_url'],
-                       github_link=issue['user']['html_url'])
+    # Record this request once, keyed by the GitHub account rather than display name.
+    legacy_times = count_contributor_entries(
+        'Extraordinary.md', issue['user']['html_url']
+    )
+    times, already_processed = update_served_json(
+        issue_creator, issue_number, legacy_times
+    )
+    if already_processed:
+        # Reconcile the contributor table before deciding whether this request
+        # is complete. A JSON record alone does not prove that its PR merged.
+        add_entry_to_table(
+            username=issue_creator,
+            avatar_url=issue['user']['avatar_url'],
+            github_link=issue['user']['html_url'],
+            times=times,
+        )
+        matching_pr = find_request_pull_request(
+            get_pull_requests(state="all"), issue_number
+        )
+        if matching_pr is None:
+            raise RuntimeError(
+                f"Issue #{issue_number} is recorded in Served.json, but no "
+                "matching pull request exists. Manual recovery is required."
+            )
+        if matching_pr.get("merged"):
+            close_issue_with_comment(issue_number, matching_pr["number"])
+            print(
+                f"Issue #{issue_number} was already merged in PR "
+                f"#{matching_pr['number']}; completed issue cleanup."
+            )
+        else:
+            print(
+                f"Issue #{issue_number} is recorded and PR "
+                f"#{matching_pr['number']} is still open; leaving it open."
+            )
+        continue
 
-    # Update served.json
-    update_served_json()
+    # Keep one Markdown entry per GitHub account and refresh its usage count.
+    add_entry_to_table(
+        username=issue_creator,
+        avatar_url=issue['user']['avatar_url'],
+        github_link=issue['user']['html_url'],
+        times=times,
+    )
 
     # Perform git operations to create a new branch,
     # add the changes, commit them, and push the branch to the remote repository with tracking enabled
@@ -417,7 +366,7 @@ for issue in issue_list:
     merge_pull_request(pr_number)
 
     # Close Issue with issue_number
-    close_issue_with_comment(issue_number)
+    close_issue_with_comment(issue_number, pr_number)
 
     # Clean up local and remote git repository
     git_cleanup()
