@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 from datetime import datetime
 
 from bs4 import BeautifulSoup
@@ -41,17 +42,14 @@ def record_contributor(
     year = f"Year {current_date.year}"
     month = current_date.strftime("%B")
     week = f"Week {current_date.strftime('%U')}"
-    date_key = served_date
-
     daily_records = (
         data.setdefault(year, {})
         .setdefault(month, {})
         .setdefault(week, {})
-        .setdefault(date_key, {})
+        .setdefault(served_date, {})
     )
     account_record = daily_records.setdefault(
-        username,
-        {"Name": display_name, "Messages": []},
+        username, {"Name": display_name, "Messages": []}
     )
     if isinstance(account_record.get("Messages"), str):
         account_record["Messages"] = [account_record["Messages"]]
@@ -135,3 +133,32 @@ def count_contributor_entries(markdown_path, github_link):
         for link in [cell.find("a", href=True)]
         if link and link["href"].rstrip("/").casefold() == normalized_url
     )
+
+
+def parse_request_fields(issue_body):
+    """Return a non-empty (name, email) pair, or None for malformed requests."""
+    body = issue_body or ""
+    name_match = re.search(
+        r"(?im)^Name:[ \t]*(?P<name>\S(?:.*\S)?)[ \t]*$",
+        body,
+    )
+    email_match = re.search(
+        r"(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,7}\b",
+        body,
+    )
+    if not name_match or not email_match:
+        return None
+    return name_match.group("name"), email_match.group()
+
+
+def find_request_pull_request(pull_requests, issue_number):
+    """Find the PR linked to an issue, including merged PRs."""
+    issue_pattern = re.compile(
+        rf"\bIssue\s*#?\s*{int(issue_number)}\b", re.IGNORECASE
+    )
+    for pull_request in pull_requests:
+        body = pull_request.get("body") or ""
+        title = pull_request.get("title") or ""
+        if issue_pattern.search(body) or issue_pattern.search(title):
+            return pull_request
+    return None
