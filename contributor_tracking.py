@@ -139,7 +139,7 @@ def parse_request_fields(issue_body):
     """Return a non-empty (name, email) pair, or None for malformed requests."""
     body = issue_body or ""
     name_match = re.search(
-        r"(?im)^Name:[ \t]*(?P<name>\S(?:.*\S)?)[ \t]*$",
+        r"(?im)^Name:[ \t]*(?P<name>\S(?:.*\S)?)[ \t]*\r?$",
         body,
     )
     email_match = re.search(
