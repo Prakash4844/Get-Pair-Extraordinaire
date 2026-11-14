@@ -8,6 +8,8 @@ from contributor_tracking import (
     count_contributor_entries,
     record_contributor,
     update_contributor_table,
+    parse_request_fields,
+    find_request_pull_request,
 )
 
 NAME = None
@@ -173,9 +175,9 @@ def create_pull_request(title, body, head_branch, base_branch="main"):
         exit(1)
 
 
-def get_pull_requests():
+def get_pull_requests(state="all"):
     """
-    Get a list of Open pull requests from the repository
+    Get pull requests from the repository, including closed PRs for recovery
     :return:
     """
     url = f"https://api.github.com/repos/{AUTHOR_NAME}/{repository_name}/pulls"
@@ -184,7 +186,7 @@ def get_pull_requests():
         "Accept": "application/vnd.github.v3+json"
     }
     params = {
-        "state": "open"  # possible values: open, closed, all
+        "state": state  # possible values: open, closed, all
     }
 
     response = requests.get(url, headers=headers, params=params)
@@ -225,7 +227,7 @@ def merge_pull_request(pull_number):
         exit(1)
 
 
-def close_issue_with_comment(issue_no):
+def close_issue_with_comment(issue_no, pull_number):
     """
     Close the issue with the given issue number in the repository along with a comment
     :param issue_no:
@@ -240,7 +242,7 @@ def close_issue_with_comment(issue_no):
 
     # Add a comment to the closed issue
     data = {
-        "body": f"Your Request has been processed in PR #{pr_number}\nThank you for your contribution."
+        "body": f"Your Request has been processed in PR #{pull_number}\nThank you for your contribution."
                 "\n\nPlease star the repository if you liked it.\n"
     }
 
@@ -277,17 +279,12 @@ for issue in issue_list:
     issue_creator = issue['user']['login']
     issue_number = issue['number']
 
-    # Parse fields by label so both LF and CRLF issue bodies are supported.
-    name_match = re.search(r'(?im)^Name:\s*(.+?)\s*$', issue_body)
-    email_match = re.search(
-        r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b',
-        issue_body,
-    )
-    if not name_match or not email_match:
+    # Parse labeled fields without allowing whitespace to consume a newline.
+    parsed_fields = parse_request_fields(issue_body)
+    if parsed_fields is None:
         print(f"Skipping issue #{issue_number}: missing name or email.")
         continue
-    NAME = name_match.group(1).strip()
-    EMAIL = email_match.group()
+    NAME, EMAIL = parsed_fields
 
 
     # Set branch name for issue
@@ -301,7 +298,33 @@ for issue in issue_list:
         issue_creator, issue_number, legacy_times
     )
     if already_processed:
-        print(f"Issue #{issue_number} has already been recorded. Skipping.")
+        # Reconcile the contributor table before deciding whether this request
+        # is complete. A JSON record alone does not prove that its PR merged.
+        add_entry_to_table(
+            username=issue_creator,
+            avatar_url=issue['user']['avatar_url'],
+            github_link=issue['user']['html_url'],
+            times=times,
+        )
+        matching_pr = find_request_pull_request(
+            get_pull_requests(state="all"), issue_number
+        )
+        if matching_pr is None:
+            raise RuntimeError(
+                f"Issue #{issue_number} is recorded in Served.json, but no "
+                "matching pull request exists. Manual recovery is required."
+            )
+        if matching_pr.get("merged"):
+            close_issue_with_comment(issue_number, matching_pr["number"])
+            print(
+                f"Issue #{issue_number} was already merged in PR "
+                f"#{matching_pr['number']}; completed issue cleanup."
+            )
+        else:
+            print(
+                f"Issue #{issue_number} is recorded and PR "
+                f"#{matching_pr['number']} is still open; leaving it open."
+            )
         continue
 
     # Keep one Markdown entry per GitHub account and refresh its usage count.
@@ -343,7 +366,7 @@ for issue in issue_list:
     merge_pull_request(pr_number)
 
     # Close Issue with issue_number
-    close_issue_with_comment(issue_number)
+    close_issue_with_comment(issue_number, pr_number)
 
     # Clean up local and remote git repository
     git_cleanup()
