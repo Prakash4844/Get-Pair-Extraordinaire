@@ -1705,5 +1705,14 @@
     </b>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/SoulxLEG3ND">
+    <img alt="SoulxLEG3ND" src="https://avatars.githubusercontent.com/u/132281413?v=4" width="100;"/>
+    <br/>
+    <b>
+     SoulxLEG3ND
+    </b>
+   </a>
+  </td>
  </tr>
 </table>
