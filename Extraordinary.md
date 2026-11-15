@@ -1872,5 +1872,18 @@
     </small>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/GabrielDuarteRB">
+    <img alt="GabrielDuarteRB" src="https://avatars.githubusercontent.com/u/69045290?v=4" width="100"/>
+    <br/>
+    <b>
+     GabrielDuarteRB
+    </b>
+    <br/>
+    <small>
+     Times: 1
+    </small>
+   </a>
+  </td>
  </tr>
 </table>
