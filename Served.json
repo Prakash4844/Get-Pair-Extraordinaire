@@ -1140,6 +1140,12 @@
                             "served to VeerajRarikar (@VeerajRatrikar) on 2026-11-15",
                             "served to VeerajRatrikar (@VeerajRatrikar) on 2026-11-15"
                         ]
+                    },
+                    "GabrielDuarteRB": {
+                        "Name": "Gabriel Bastos",
+                        "Messages": [
+                            "served to Gabriel Bastos (@GabrielDuarteRB) on 2026-11-15"
+                        ]
                     }
                 }
             }
@@ -1252,6 +1258,20 @@
                     "Date": "2026-11-15",
                     "Issue": "422",
                     "Name": "VeerajRatrikar"
+                }
+            ],
+            "Last served": "2026-11-15"
+        },
+        "GabrielDuarteRB": {
+            "Times": 1,
+            "Requests": [
+                "421"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "421",
+                    "Name": "Gabriel Bastos"
                 }
             ],
             "Last served": "2026-11-15"
