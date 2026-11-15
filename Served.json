@@ -1133,6 +1133,12 @@
                         "Messages": [
                             "served to Kyson Something (@kysonlol) on 2026-11-15"
                         ]
+                    },
+                    "VeerajRatrikar": {
+                        "Name": "VeerajRarikar",
+                        "Messages": [
+                            "served to VeerajRarikar (@VeerajRatrikar) on 2026-11-15"
+                        ]
                     }
                 }
             }
@@ -1225,6 +1231,20 @@
                     "Date": "2026-11-15",
                     "Issue": "424",
                     "Name": "Kyson Something"
+                }
+            ],
+            "Last served": "2026-11-15"
+        },
+        "VeerajRatrikar": {
+            "Times": 1,
+            "Requests": [
+                "423"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "423",
+                    "Name": "VeerajRarikar"
                 }
             ],
             "Last served": "2026-11-15"
