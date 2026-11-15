@@ -1885,5 +1885,18 @@
     </small>
    </a>
   </td>
+  <td align="center">
+   <a href="https://github.com/isthatpratham">
+    <img alt="isthatpratham" src="https://avatars.githubusercontent.com/u/125961992?v=4" width="100"/>
+    <br/>
+    <b>
+     isthatpratham
+    </b>
+    <br/>
+    <small>
+     Times: 1
+    </small>
+   </a>
+  </td>
  </tr>
 </table>
