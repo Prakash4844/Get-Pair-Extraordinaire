@@ -1109,6 +1109,12 @@
                         "Messages": [
                             "served to Truong Trung Nghia (@ttncode) on 2026-11-15"
                         ]
+                    },
+                    "Rapid1234-star": {
+                        "Name": "Rapid1234-star",
+                        "Messages": [
+                            "served to Rapid1234-star (@Rapid1234-star) on 2026-11-15"
+                        ]
                     }
                 }
             }
@@ -1145,6 +1151,20 @@
                     "Date": "2026-11-15",
                     "Issue": "433",
                     "Name": "Truong Trung Nghia"
+                }
+            ],
+            "Last served": "2026-11-15"
+        },
+        "Rapid1234-star": {
+            "Times": 1,
+            "Requests": [
+                "431"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "431",
+                    "Name": "Rapid1234-star"
                 }
             ],
             "Last served": "2026-11-15"
