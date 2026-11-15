@@ -1146,6 +1146,12 @@
                         "Messages": [
                             "served to Gabriel Bastos (@GabrielDuarteRB) on 2026-11-15"
                         ]
+                    },
+                    "isthatpratham": {
+                        "Name": "isthatpratham",
+                        "Messages": [
+                            "served to isthatpratham (@isthatpratham) on 2026-11-15"
+                        ]
                     }
                 }
             }
@@ -1272,6 +1278,20 @@
                     "Date": "2026-11-15",
                     "Issue": "421",
                     "Name": "Gabriel Bastos"
+                }
+            ],
+            "Last served": "2026-11-15"
+        },
+        "isthatpratham": {
+            "Times": 1,
+            "Requests": [
+                "418"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "418",
+                    "Name": "isthatpratham"
                 }
             ],
             "Last served": "2026-11-15"
