@@ -1115,6 +1115,12 @@
                         "Messages": [
                             "served to Rapid1234-star (@Rapid1234-star) on 2026-11-15"
                         ]
+                    },
+                    "88lin": {
+                        "Name": "88lin",
+                        "Messages": [
+                            "served to 88lin (@88lin) on 2026-11-15"
+                        ]
                     }
                 }
             }
@@ -1165,6 +1171,20 @@
                     "Date": "2026-11-15",
                     "Issue": "431",
                     "Name": "Rapid1234-star"
+                }
+            ],
+            "Last served": "2026-11-15"
+        },
+        "88lin": {
+            "Times": 1,
+            "Requests": [
+                "430"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "430",
+                    "Name": "88lin"
                 }
             ],
             "Last served": "2026-11-15"
