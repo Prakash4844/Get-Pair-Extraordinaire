@@ -75,7 +75,8 @@ def record_contributor(
 def update_contributor_table(markdown_path, username, avatar_url, github_link, times):
     """Update an account's existing cell or append one when it is new."""
     with open(markdown_path, encoding="utf-8") as file:
-        soup = BeautifulSoup(file.read(), "html.parser")
+        original = file.read()
+    soup = BeautifulSoup(original, "html.parser")
 
     table = soup.find("table", class_="contributors")
     if table is None:
@@ -116,8 +117,12 @@ def update_contributor_table(markdown_path, username, avatar_url, github_link, t
     count.string = f"Times: {times}"
     link.append(count)
 
+    updated = soup.prettify()
+    if updated == original:
+        return False
     with open(markdown_path, "w", encoding="utf-8") as file:
-        file.write(soup.prettify())
+        file.write(updated)
+    return True
 
 
 def count_contributor_entries(markdown_path, github_link):
@@ -162,3 +167,8 @@ def find_request_pull_request(pull_requests, issue_number):
         if issue_pattern.search(body) or issue_pattern.search(title):
             return pull_request
     return None
+
+
+def is_pull_request_merged(pull_request):
+    """Return whether a pull-request response indicates it was merged."""
+    return bool(pull_request.get("merged") or pull_request.get("merged_at"))

@@ -10,6 +10,7 @@ from contributor_tracking import (
     update_contributor_table,
     parse_request_fields,
     find_request_pull_request,
+    is_pull_request_merged,
 )
 
 NAME = None
@@ -61,7 +62,7 @@ def fetch_issues():
 
 def add_entry_to_table(username, avatar_url, github_link, times):
     """Add or update one contributor cell without creating duplicate accounts."""
-    update_contributor_table(
+    return update_contributor_table(
         markdown_path='Extraordinary.md',
         username=username,
         avatar_url=avatar_url,
@@ -175,7 +176,7 @@ def create_pull_request(title, body, head_branch, base_branch="main"):
         exit(1)
 
 
-def get_pull_requests(state="all"):
+def get_pull_requests(state="open"):
     """
     Get pull requests from the repository, including closed PRs for recovery
     :return:
@@ -185,19 +186,24 @@ def get_pull_requests(state="all"):
         "Authorization": f"Bearer {GITHUB_PAT}",
         "Accept": "application/vnd.github.v3+json"
     }
-    params = {
-        "state": state  # possible values: open, closed, all
-    }
-
-    response = requests.get(url, headers=headers, params=params)
-
-    if response.status_code == 200:
-        prs = response.json()
-        return prs
-    else:
-        print(f"Failed to fetch pull requests. Response: {response.text}")
-        print("Aborting the process.\nPlease check the logs and try again.")
-        exit(1)
+    prs = []
+    page = 1
+    while True:
+        params = {
+            "state": state,  # possible values: open, closed, all
+            "per_page": 100,
+            "page": page,
+        }
+        response = requests.get(url, headers=headers, params=params)
+        if response.status_code != 200:
+            print(f"Failed to fetch pull requests. Response: {response.text}")
+            print("Aborting the process.\nPlease check the logs and try again.")
+            exit(1)
+        batch = response.json()
+        prs.extend(batch)
+        if len(batch) < 100:
+            return prs
+        page += 1
 
 
 def merge_pull_request(pull_number):
@@ -297,15 +303,10 @@ for issue in issue_list:
     times, already_processed = update_served_json(
         issue_creator, issue_number, legacy_times
     )
+    recovery_mode = False
     if already_processed:
         # Reconcile the contributor table before deciding whether this request
         # is complete. A JSON record alone does not prove that its PR merged.
-        add_entry_to_table(
-            username=issue_creator,
-            avatar_url=issue['user']['avatar_url'],
-            github_link=issue['user']['html_url'],
-            times=times,
-        )
         matching_pr = find_request_pull_request(
             get_pull_requests(state="all"), issue_number
         )
@@ -314,26 +315,36 @@ for issue in issue_list:
                 f"Issue #{issue_number} is recorded in Served.json, but no "
                 "matching pull request exists. Manual recovery is required."
             )
-        if matching_pr.get("merged"):
+        if not is_pull_request_merged(matching_pr):
+            print(
+                f"Issue #{issue_number} is recorded and PR "
+                f"#{matching_pr['number']} is still open; leaving it open."
+            )
+            continue
+        recovery_mode = True
+        branch_name = f'{issue_creator}-recovery-{issue_number}-{today}'
+        table_changed = add_entry_to_table(
+            username=issue_creator,
+            avatar_url=issue['user']['avatar_url'],
+            github_link=issue['user']['html_url'],
+            times=times,
+        )
+        if not table_changed:
             close_issue_with_comment(issue_number, matching_pr["number"])
             print(
                 f"Issue #{issue_number} was already merged in PR "
                 f"#{matching_pr['number']}; completed issue cleanup."
             )
-        else:
-            print(
-                f"Issue #{issue_number} is recorded and PR "
-                f"#{matching_pr['number']} is still open; leaving it open."
-            )
-        continue
+            continue
 
     # Keep one Markdown entry per GitHub account and refresh its usage count.
-    add_entry_to_table(
-        username=issue_creator,
-        avatar_url=issue['user']['avatar_url'],
-        github_link=issue['user']['html_url'],
-        times=times,
-    )
+    if not recovery_mode:
+        add_entry_to_table(
+            username=issue_creator,
+            avatar_url=issue['user']['avatar_url'],
+            github_link=issue['user']['html_url'],
+            times=times,
+        )
 
     # Perform git operations to create a new branch,
     # add the changes, commit them, and push the branch to the remote repository with tracking enabled
@@ -346,9 +357,13 @@ for issue in issue_list:
     comment_on_issue(Issue_comment, issue_number)
 
     # Create Pull Request
-    pr_title = f"Serving Pair-Extraordinaire, Add {issue_creator} to the list of served users on {today}"
-    pr_body = f"Committed with, co-author, @{issue_creator} for providing Pair Extraordinaire badge. " \
-              f"This PR is in Relation to Issue #{issue_number}"
+    if recovery_mode:
+        pr_title = f"Recover contributor entry for {issue_creator} from Issue #{issue_number}"
+        pr_body = f"Repairs the contributor table after the already-merged PR for Issue #{issue_number}."
+    else:
+        pr_title = f"Serving Pair-Extraordinaire, Add {issue_creator} to the list of served users on {today}"
+        pr_body = f"Committed with, co-author, @{issue_creator} for providing Pair Extraordinaire badge. " \
+                  f"This PR is in Relation to Issue #{issue_number}"
 
     create_pull_request(pr_title, pr_body, head_branch=f"{branch_name}")
 

@@ -9,6 +9,7 @@ from contributor_tracking import (
     update_contributor_table,
     parse_request_fields,
     find_request_pull_request,
+    is_pull_request_merged,
 )
 
 
@@ -44,7 +45,7 @@ class RequestRecoveryTests(unittest.TestCase):
             "number": 2,
             "title": "Serve contributor",
             "body": "This PR is in Relation to Issue #87",
-            "merged": True,
+            "merged_at": "2026-11-14T03:34:51Z",
         }
         self.assertIs(
             find_request_pull_request(
@@ -56,6 +57,12 @@ class RequestRecoveryTests(unittest.TestCase):
             ),
             matching_pr,
         )
+
+    def test_recognizes_merged_at_from_list_pull_request_response(self):
+        self.assertTrue(
+            is_pull_request_merged({"merged_at": "2026-11-14T03:34:51Z"})
+        )
+        self.assertFalse(is_pull_request_merged({"merged_at": None}))
 
     def test_returns_none_when_no_pr_matches_issue(self):
         self.assertIsNone(
@@ -145,6 +152,32 @@ class ContributorTableTests(unittest.TestCase):
             cells = soup.select('table.contributors td a[href="https://github.com/octocat"]')
             self.assertEqual(len(cells), 1)
             self.assertEqual(cells[0].find("small").get_text(strip=True), "Times: 3")
+
+    def test_unchanged_contributor_table_is_not_rewritten(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "Extraordinary.md"
+            path.write_text(
+                '<table class="contributors"><tr>'
+                '<td><a href="https://github.com/octocat">'
+                '<img src="https://example.com/avatar.png" width="100" alt="octocat"/>'
+                '<br/><b>octocat</b><br/><small>Times: 3</small>'
+                '</a></td></tr></table>\n',
+                encoding="utf-8",
+            )
+
+            update_contributor_table(
+                path, "octocat", "https://example.com/avatar.png",
+                "https://github.com/octocat", 3,
+            )
+            original = path.read_text(encoding="utf-8")
+
+            changed = update_contributor_table(
+                path, "octocat", "https://example.com/avatar.png",
+                "https://github.com/octocat", 3,
+            )
+
+            self.assertFalse(changed)
+            self.assertEqual(path.read_text(encoding="utf-8"), original)
 
     def test_legacy_markdown_entries_can_be_counted(self):
         with tempfile.TemporaryDirectory() as directory:
