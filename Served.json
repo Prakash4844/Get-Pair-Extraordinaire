@@ -1120,6 +1120,7 @@
                     "88lin": {
                         "Name": "88lin",
                         "Messages": [
+                            "served to 88lin (@88lin) on 2026-11-15",
                             "served to 88lin (@88lin) on 2026-11-15"
                         ]
                     },
@@ -1256,14 +1257,20 @@
             "Last served": "2026-11-15"
         },
         "88lin": {
-            "Times": 1,
+            "Times": 2,
             "Requests": [
-                "430"
+                "430",
+                "428"
             ],
             "History": [
                 {
                     "Date": "2026-11-15",
                     "Issue": "430",
+                    "Name": "88lin"
+                },
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "428",
                     "Name": "88lin"
                 }
             ],
