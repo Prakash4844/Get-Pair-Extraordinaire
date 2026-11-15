@@ -1100,7 +1100,8 @@
                     "sebanovo": {
                         "Name": "sebanovo",
                         "Messages": [
-                            "served to sebanovo (@sebanovo) on 2026-11-15"
+                            "served to sebanovo (@sebanovo) on 2026-11-15",
+                            "served to Sebanovo (@sebanovo) on 2026-11-15"
                         ]
                     }
                 }
@@ -1109,15 +1110,21 @@
     },
     "Contributors": {
         "sebanovo": {
-            "Times": 1,
+            "Times": 2,
             "Requests": [
-                "438"
+                "438",
+                "437"
             ],
             "History": [
                 {
                     "Date": "2026-11-15",
                     "Issue": "438",
                     "Name": "sebanovo"
+                },
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "437",
+                    "Name": "Sebanovo"
                 }
             ],
             "Last served": "2026-11-15"
