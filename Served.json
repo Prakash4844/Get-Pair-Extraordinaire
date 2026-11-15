@@ -1121,6 +1121,12 @@
                         "Messages": [
                             "served to 88lin (@88lin) on 2026-11-15"
                         ]
+                    },
+                    "Evijo30-max": {
+                        "Name": "Eric Evina M. (Evijo30-max)",
+                        "Messages": [
+                            "served to Eric Evina M. (Evijo30-max) (@Evijo30-max) on 2026-11-15"
+                        ]
                     }
                 }
             }
@@ -1185,6 +1191,20 @@
                     "Date": "2026-11-15",
                     "Issue": "430",
                     "Name": "88lin"
+                }
+            ],
+            "Last served": "2026-11-15"
+        },
+        "Evijo30-max": {
+            "Times": 1,
+            "Requests": [
+                "426"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "426",
+                    "Name": "Eric Evina M. (Evijo30-max)"
                 }
             ],
             "Last served": "2026-11-15"
