@@ -1127,6 +1127,12 @@
                         "Messages": [
                             "served to Eric Evina M. (Evijo30-max) (@Evijo30-max) on 2026-11-15"
                         ]
+                    },
+                    "kysonlol": {
+                        "Name": "Kyson Something",
+                        "Messages": [
+                            "served to Kyson Something (@kysonlol) on 2026-11-15"
+                        ]
                     }
                 }
             }
@@ -1205,6 +1211,20 @@
                     "Date": "2026-11-15",
                     "Issue": "426",
                     "Name": "Eric Evina M. (Evijo30-max)"
+                }
+            ],
+            "Last served": "2026-11-15"
+        },
+        "kysonlol": {
+            "Times": 1,
+            "Requests": [
+                "424"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "424",
+                    "Name": "Kyson Something"
                 }
             ],
             "Last served": "2026-11-15"
