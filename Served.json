@@ -1103,6 +1103,12 @@
                             "served to sebanovo (@sebanovo) on 2026-11-15",
                             "served to Sebanovo (@sebanovo) on 2026-11-15"
                         ]
+                    },
+                    "ttncode": {
+                        "Name": "Truong Trung Nghia",
+                        "Messages": [
+                            "served to Truong Trung Nghia (@ttncode) on 2026-11-15"
+                        ]
                     }
                 }
             }
@@ -1125,6 +1131,20 @@
                     "Date": "2026-11-15",
                     "Issue": "437",
                     "Name": "Sebanovo"
+                }
+            ],
+            "Last served": "2026-11-15"
+        },
+        "ttncode": {
+            "Times": 1,
+            "Requests": [
+                "433"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-15",
+                    "Issue": "433",
+                    "Name": "Truong Trung Nghia"
                 }
             ],
             "Last served": "2026-11-15"
