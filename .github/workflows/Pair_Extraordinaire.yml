@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v3 # checkout the repository content
+        uses: actions/checkout@v7 # checkout the repository content
         with:
           token: ${{ secrets.EXTRAORDINAIREPAT }} # Use EXTRAORDINAIREPAT secret for authentication
 
       - name: setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11' # install the python version needed
           cache: 'pip' # caching pip packages will speed up the workflow
