@@ -1222,6 +1222,14 @@
                             "served to Vivian (@ViviBeri) on 2026-11-15"
                         ]
                     }
+                },
+                "2026-11-16": {
+                    "d-sanoj": {
+                        "Name": "Sanoj D",
+                        "Messages": [
+                            "served to Sanoj D (@d-sanoj) on 2026-11-16"
+                        ]
+                    }
                 }
             }
         }
@@ -1536,6 +1544,20 @@
                 }
             ],
             "Last served": "2026-11-15"
+        },
+        "d-sanoj": {
+            "Times": 1,
+            "Requests": [
+                "497"
+            ],
+            "History": [
+                {
+                    "Date": "2026-11-16",
+                    "Issue": "497",
+                    "Name": "Sanoj D"
+                }
+            ],
+            "Last served": "2026-11-16"
         }
     }
 }
